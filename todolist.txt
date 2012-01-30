@@ -1,0 +1,11 @@
+Need to create some basic model layouts
+Will start very simple
+User model already exists
+Will need to create a model for Manually entered notes
+So far two tables, User and Notes
+However... might need to have a linking table, study the Bookmark Data Model on pg 33 as this might be needed to link the User table to the Notes table
+
+01-30-2012
+need to swap in Blueprint CSS for the CSS of this webpage
+
+

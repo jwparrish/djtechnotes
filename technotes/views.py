@@ -1,16 +1,13 @@
 from django.http import HttpResponse
+from django.template import Context
+from django.template.loader import get_template
 
 def main_page(request):
-	output = '''
-		<html>
-			<head><title>%s</title></head>
-			<body>
-				<h1>%s</h1><p>%s</p>
-			</body>
-		</html>
-	''' % (
-		'techNotes',
-		'Welcome to techNotes',
-		'One Mind In Tech Support!'
-	)
+	template = get_template('main_page.html')
+	variables = Context({
+		'head_title': 'techNotes',
+		'page_title': 'Welcome to techNotes',
+		'page_body': 'One mind in Tech Support!'
+	})
+	output = template.render(variables)
 	return HttpResponse(output)
