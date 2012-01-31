@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<title>techNotes - User: {{ username }}</title>
+	</head>
+	<body>
+		<h1>Notes for {{ username }}</h1>
+		{% if bookmarks %}
+			<ul>
+				{% for bookmark in bookmarks %}
+					<li><a href="note.html">{{ bookmark.title }}</a></li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>No notes found.</p>
+		{% endif %}
+	</body>
+</html>
