@@ -4,10 +4,10 @@
 	</head>
 	<body>
 		<h1>Notes for {{ username }}</h1>
-		{% if bookmarks %}
+		{% if notes %}
 			<ul>
-				{% for bookmark in bookmarks %}
-					<li><a href="note.html">{{ bookmark.title }}</a></li>
+				{% for note in notes %}
+					<li><a href="note.html">{{ note.title }}</a></li>
 				{% endfor %}
 			</ul>
 		{% else %}
