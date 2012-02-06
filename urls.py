@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 	(r'^user/(\w+)/$', user_page),
 	(r'^user/(\w+)/note.html', note_page),
 	(r'^login/$', 'django.contrib.auth.views.login'),
+	(r'^logout/$', logout_page),
 )
 
 
