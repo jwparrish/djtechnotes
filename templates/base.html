@@ -2,8 +2,23 @@
 <html>
 	<head>
 		<title>techNotes | {% block title %}{% endblock %}</title>
+		<link rel="stylesheet" href="/site_media/blueprint/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print" />
+		<!--[if IE]><link rel="stylesheet" href="/site_media/blueprint/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+		<link rel="stylesheet" href="/site_media/style.css" type="text/css" media="screen, projection" />
+		
 	</head>
 	<body>
+		<div id="nav">
+			<a href="/">home</a> |
+				{% if user.is_authenticated %}
+					welcome {{ user.username }}
+					(<a href="/logout">logout</a>)
+				{% else %}
+					<a href="/login/">login</a>
+				{% endif %}
+		</div>
+		
 		<h3>{% block head %}{% endblock %}</h3>
 		{% block content %}{% endblock %}
 	</body>
