@@ -10,3 +10,6 @@ need to swap in Blueprint CSS for the CSS of this webpage
 
 01-31-2012
 Created notes template and user page for individual notes, implemented round about way of displaying note when clicking link to note, but needs work
+
+02-04-2012
+Removed Bookmarks table, created Foreign key from Note table to user, Need to fix urlconf and views and templates for new setup

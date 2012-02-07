@@ -13,3 +13,6 @@ Created notes template and user page for individual notes, implemented round abo
 
 02-04-2012
 Removed Bookmarks table, created Foreign key from Note table to user, Need to fix urlconf and views and templates for new setup
+
+02-06-2012
+created template inheritance, need to incorporate blueprint CSS for stylesheets

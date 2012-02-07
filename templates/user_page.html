@@ -1,17 +1,17 @@
-<html>
-	<head>
-		<title>techNotes - User: {{ username }}</title>
-	</head>
-	<body>
-		<h1>Notes for {{ username }}</h1>
-		{% if notes %}
-			<ul>
-				{% for note in notes %}
-					<li><a href="note.html">{{ note.title }}</a></li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<p>No notes found.</p>
-		{% endif %}
-	</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ username }}{% endblock %}
+
+{% block head %}Notes for {{ username }}{% endblock %}
+
+{% block content %}
+	{% if notes %}
+		<ul>
+			{% for note in notes %}
+				<li><a href="note.html">{{ note.title }}</a><li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>No notes found</p>
+	{% endif %}
+{% endblock %}

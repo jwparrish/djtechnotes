@@ -1,15 +1,13 @@
-<html>
-	<head>
-		<title>techNotes - One mind in Tech Support</title>
-	</head>
-	<body>
-		<h1>Welcome to techNotes</h1>
-		{% if user.username %}
-			<p>Welcome {{ user.username }}!
-			techNotes is a Knowledge Base for Tech Support!</p>
-		{% else %}
-			<p>Welcome anonymous user!
-			You need to <a href="/login/">login</a> before you can create or access any notes.</p>
-		{% endif %}
-	</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Welcome to techNotes{% endblock %}
+
+{% block head %}techNotes | One mind in Tech Support{% endblock %}
+
+{% block content %}
+	{% if user.username %}
+		<p>Welcome {{ user.username }}!  techNotes is a Knowledge Base for Tech Support!</p>
+	{% else %}
+		<p>Welcome anonymous user!  You need to <a href="/login/">login</a> before you can create or view notes.</p>
+	{% endif %}
+{% endblock %}
