@@ -25,10 +25,19 @@ class RegistrationForm(forms.Form):
 	
 	def clean_username(self):
 		username = self.cleaned_data['username']
-		if no re.search(r'^\w+$', username):
+		if not re.search(r'^\w+$', username):
 			raise forms.ValidationError('Username can only contain alphanumeric characters and the underscore.')
-			try:
-				User.objects.get(username=username)
-			except ObjectDoesNotExist:
-				return username
-			raise forms.ValidationError('Username is already taken!')
+		try:
+			User.objects.get(username=username)
+		except ObjectDoesNotExist:
+			return username
+		raise forms.ValidationError('Username is already taken!')
+		
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		try:
+			User.objects.get(email__exact=email)
+		except ObjectDoesNotExist:
+			return email
+		raise forms.ValidationError('Email address is already registered!')
+		
