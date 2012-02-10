@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.views.generic.simple import direct_to_template
+from django.contrib.auth.views import logout
 from technotes.views import *
 import os.path
 
@@ -15,6 +17,9 @@ urlpatterns = patterns('',
 	(r'^login/$', 'django.contrib.auth.views.login'),
 	(r'^logout/$', logout_page),
 	(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': site_media }),
+	(r'^register/$', register_page),
+	(r'^register/success/$', direct_to_template, {'template': 'registration/register_success.html' }),
+	(r'^logout/success/$', direct_to_template, {'template': 'logout.html'}),
 )
 
 

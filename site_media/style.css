@@ -2,7 +2,12 @@
 	float: right;
 }
 
-*/
+input {
+	display: block;
+}
+
+
+/*
 h3 {
 	border: 1px solid blue;
 }
