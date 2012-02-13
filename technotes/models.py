@@ -8,7 +8,17 @@ class Note(models.Model):
 	
 	def __unicode__(self):
 		return self.title
+		
+	def __str__(self):
+		return '%s, %s' % (self.user.username, self.title)
 	
+class Tag(models.Model):
+	name = models.CharField(max_length=64, unique=True)
+	notes = models.ManyToManyField(Note)
+	
+	def __str__(self):
+		return self.name
+
 
 """
 class Bookmark(models.Model):

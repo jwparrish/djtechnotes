@@ -20,6 +20,9 @@ urlpatterns = patterns('',
 	(r'^register/$', register_page),
 	(r'^register/success/$', direct_to_template, {'template': 'registration/register_success.html' }),
 	(r'^logout/success/$', direct_to_template, {'template': 'logout.html'}),
+	(r'^changepw/$', 'django.contrib.auth.views.password_change'),
+	(r'^changepwdone/$', 'django.contrib.auth.views.password_change_done'),
+	(r'^save/$', note_save_page),
 )
 
 

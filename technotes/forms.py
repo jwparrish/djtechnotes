@@ -41,3 +41,19 @@ class RegistrationForm(forms.Form):
 			return email
 		raise forms.ValidationError('Email address is already registered!')
 		
+class NoteSaveForm(forms.Form):
+	title = forms.CharField(
+		label = 'Title',
+		widget = forms.TextInput(attrs={'size': 64})
+	)
+	note = forms.CharField(
+		label = 'Note',
+		widget = forms.widgets.Textarea()
+	)
+	tags = forms.CharField(
+		label = 'Tags',
+		required = False,
+		widget = forms.TextInput(attrs={'size':64})
+	)
+		
+		
