@@ -6,6 +6,8 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import logout
 from technotes.forms import *
 from technotes.models import *
+from django.contrib.auth.decorators import login_required
+
 
 def main_page(request):
 	return render_to_response(
@@ -18,7 +20,7 @@ def user_page(request, username):
 		user = User.objects.get(username=username)
 	except:
 		raise Http404('Requested user not found.')
-	notes = user.note_set.all()
+	notes = Note.objects.filter(user__username=username)
 	variables = RequestContext(request, {
 		'username' : username,
 		'notes': notes,
@@ -57,6 +59,7 @@ def register_page(request):
 	})
 	return render_to_response('registration/register.html', variables)
 	
+@login_required
 def note_save_page(request):
 	if request.method == 'POST':
 		form = NoteSaveForm(request.POST)
@@ -86,3 +89,9 @@ def note_save_page(request):
 		'form': form
 	})
 	return render_to_response('note_save.html', variables)
+	
+#def fake_redirect(request, path):
+#	if request.user.is_authenticated:
+#		raise Http404()
+#	else:
+#		return HttpResponseRedirect('/login/?next=/%s' % path)

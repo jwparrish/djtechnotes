@@ -23,6 +23,9 @@ urlpatterns = patterns('',
 	(r'^changepw/$', 'django.contrib.auth.views.password_change'),
 	(r'^changepwdone/$', 'django.contrib.auth.views.password_change_done'),
 	(r'^save/$', note_save_page),
+	
+	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
+#	(r'^(?P<path>.+)$', fake_redirect),
 )
 
 
@@ -38,3 +41,6 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 #)
+
+
+

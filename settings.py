@@ -1,5 +1,6 @@
 # Django settings for djtechnotes project.
 import os.path
+import django.contrib.auth
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -147,3 +148,5 @@ LOGGING = {
         },
     }
 }
+
+django.contrib.auth.LOGIN_URL = '/login/'
