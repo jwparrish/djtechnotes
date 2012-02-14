@@ -16,3 +16,6 @@ Removed Bookmarks table, created Foreign key from Note table to user, Need to fi
 
 02-06-2012
 created template inheritance, need to incorporate blueprint CSS for stylesheets
+
+02-14-2012
+Idea for displaying individual notes, need to loop through each object in the queryset returned from "notes" and add on the note's id to the url that is attached to each iteration.  then, you can create a urlconf entry that accepts this number as in user/notes/1 and it then passes this number to the corresponding view which grabs this note out of the database and displays its "note" attribute.
