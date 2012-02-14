@@ -30,7 +30,7 @@ def user_page(request, username):
 
 def note_page(request, username):
 	user = User.objects.get(username=username)
-	notes = user.note_set.all()
+	notes = Note.objects.filter(user__username=user)
 	variables = RequestContext(request, {
 		'username': username,
 		'notes': notes,

@@ -8,7 +8,7 @@
 	{% if notes %}
 		<ul>
 			{% for note in notes %}
-				<li><a href="note.html">{{ note.title }}</a><li>
+				<li><a href="note/{{ note.id }}">{{ note.title }}</a><li>
 			{% endfor %}
 		</ul>
 	{% else %}
