@@ -3,7 +3,5 @@
 {% block title %}{{ username }}{% endblock %}
 
 {% block content %}
-	{% for note in notes %}
-		<p>{{ note.note }}</p>
-	{% endfor %}
+	<p>{{ note.note }}</p>
 {% endblock %}

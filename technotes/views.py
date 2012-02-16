@@ -27,7 +27,7 @@ def user_page(request, username):
 	})
 	return render_to_response('user_page.html', variables)
 
-
+#legacy
 def note_page(request, username):
 	user = User.objects.get(username=username)
 	notes = Note.objects.filter(user__username=user)
@@ -95,3 +95,11 @@ def note_save_page(request):
 #		raise Http404()
 #	else:
 #		return HttpResponseRedirect('/login/?next=/%s' % path)
+
+def display_note(request, username, noteid):
+	note = Note.objects.get(id=noteid)
+	variables = RequestContext(request, {
+		'username': username,
+		'note': note
+	})
+	return render_to_response('note.html', variables)
