@@ -1,0 +1,32 @@
+{% if notes %}
+	<ul class="notelist">
+		{% for note in notes %}
+			<li class="notelist">	
+				<a href="/user/{{ note.user.username }}/note/{{ note.id }}">{{ note.title }}</a>
+				<br />
+				{% if show_tags %}
+					Tags:
+					{% if note.tag_set.all %}
+						<ul class="tags">
+							{% for tag in note.tag_set.all %}
+								<li>
+									<a href="/tag/{{ tag.name }}/">{{ tag.name }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% else %}
+						None.
+					{% endif %}
+					<br />
+				{% endif %}
+				{% if show_user %}
+					Posted by:
+					<a href="/user/{{ note.user.username }}/" class="username">{{ note.user.username }}</a>
+				{% endif %}
+			</li>
+			<br />
+		{% endfor %}
+	</ul>
+{% else %}
+	<p>No notes found.</p>
+{% endif %}

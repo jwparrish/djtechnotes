@@ -5,6 +5,11 @@
 {% block head %}Notes for {{ username }}{% endblock %}
 
 {% block content %}
+	{% include "note_list.html" %}
+
+
+
+<!--  ############ FORMER NOTE LISTING METHOD #########################
 	{% if notes %}
 		<ul class="notelist">
 			{% for note in notes %}
@@ -14,4 +19,5 @@
 	{% else %}
 		<p>No notes found</p>
 	{% endif %}
+-->
 {% endblock %}

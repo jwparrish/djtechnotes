@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.contrib.auth.models import User
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth import logout
 from technotes.forms import *
 from technotes.models import *
@@ -16,14 +16,14 @@ def main_page(request):
 
 
 def user_page(request, username):
-	try:
-		user = User.objects.get(username=username)
-	except:
-		raise Http404('Requested user not found.')
-	notes = Note.objects.filter(user__username=username)
+	user = get_object_or_404(User, username=username)
+	notes = user.note_set.order_by('-id')
+	#notes = Note.objects.filter(user__username=username)
 	variables = RequestContext(request, {
 		'username' : username,
 		'notes': notes,
+		'show_tags': True,
+		'show_user': False,
 	})
 	return render_to_response('user_page.html', variables)
 
@@ -103,3 +103,14 @@ def display_note(request, username, noteid):
 		'note': note
 	})
 	return render_to_response('note.html', variables)
+	
+def tag_page(request, tag_name):
+	tag = get_object_or_404(Tag, name=tag_name)
+	notes = tag.notes.order_by('-id')
+	variables = RequestContext(request, {
+		'notes': notes,
+		'tag_name': tag_name,
+		'show_tags': True,
+		'show_user': True,
+	})
+	return render_to_response('tag_page.html', variables)
