@@ -2,6 +2,8 @@
 
 {% block title %}{{ username }}{% endblock %}
 
+{% block head %}{{ note.title }}{% endblock %}
+
 {% block content %}
 	<p>{{ note.note }}</p>
 {% endblock %}

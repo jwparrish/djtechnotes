@@ -6,6 +6,9 @@ input {
 	display: block;
 }
 
+.notelist {
+	list-style-type: none;
+}
 
 /*
 h3 {
