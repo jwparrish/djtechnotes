@@ -48,7 +48,7 @@ class NoteSaveForm(forms.Form):
 	)
 	note = forms.CharField(
 		label = 'Note',
-		widget = forms.widgets.Textarea()
+		widget = forms.widgets.Textarea(attrs={'class': 'noteinput'})
 	)
 	tags = forms.CharField(
 		label = 'Tags',

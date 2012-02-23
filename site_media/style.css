@@ -15,3 +15,7 @@ ul.tags, ul.tags li {
 	margin: 0;
 	padding: 0;
 }
+
+.noteinput {
+	display: block;
+}
