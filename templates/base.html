@@ -6,23 +6,30 @@
 		<link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print" />
 		<!--[if IE]><link rel="stylesheet" href="/site_media/blueprint/ie.css" type="text/css" media="screen, projection" /><![endif]-->
 		<link rel="stylesheet" href="/site_media/style.css" type="text/css" media="screen, projection" />
-		
 	</head>
 	<body>
-		<div id="nav">
-			<a href="/">home</a> |
-				{% if user.is_authenticated %}
-					<a href="/save/">submit</a> |
-					<a href="/user/{{ user.username }}/">
-						{{ user.username }} notes</a> |
-					<a href="/logout/">logout</a>
-				{% else %}
-					<a href="/login/">login</a> |
-					<a href="/register/">register</a>
-				{% endif %}
-		</div>
+		<div id="container">
+			<div id="titlebar">
+				<h3>techNotes | One mind in Tech Support</h3>
+			
+				<div id="nav">
+					<a href="/">home</a> |
+						{% if user.is_authenticated %}
+							<a href="/save/">submit</a> |
+							<a href="/user/{{ user.username }}/">
+								{{ user.username }} notes</a> |
+							<a href="/logout/">logout</a>
+						{% else %}
+							<a href="/login/">login</a> |
+							<a href="/register/">register</a>
+						{% endif %}
+				</div>
+			</div>
+			<div class="spacer"></div>
 		
-		<h3>{% block head %}{% endblock %}</h3>
-		{% block content %}{% endblock %}
+			{% block head %}{% endblock %}
+			
+			{% block content %}{% endblock %}
+		</div>
 	</body>
 </html>
