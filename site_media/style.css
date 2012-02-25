@@ -4,17 +4,29 @@
 #nav {
 	float: right;
 	width: 200px;
+	padding-top: 15px;
 }
 
 #titlebar {
-	background: blue;
+	background: #000;
+	height: 50px;
 }
 
 #titlebar h3 {
+	color: #FFF;
 	float: left;
 	margin: 0;
-	padding: 0;
-	width: 400px;
+	padding: 15px 0 0 5px;
+	width: 304px;
+}
+
+#header{
+	font-weight: bold;
+	font-size: 150%;
+}
+
+#content {
+	padding: 0 5px 0 5px;
 }
 
 input {
@@ -38,5 +50,10 @@ ul.tags, ul.tags li {
 
 .spacer {
 	clear: both;
+	height: 10px;
+}
+
+.titleDivider {
+	color: #06c;
 }
 

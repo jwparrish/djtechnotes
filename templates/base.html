@@ -10,26 +10,30 @@
 	<body>
 		<div id="container">
 			<div id="titlebar">
-				<h3>techNotes | One mind in Tech Support</h3>
+				<h3>techNotes <span class="titleDivider">|</span> One mind in Tech Support</h3>
 			
 				<div id="nav">
 					<a href="/">home</a> |
 						{% if user.is_authenticated %}
 							<a href="/save/">submit</a> |
 							<a href="/user/{{ user.username }}/">
-								{{ user.username }} notes</a> |
+								my notes</a> |
 							<a href="/logout/">logout</a>
 						{% else %}
 							<a href="/login/">login</a> |
 							<a href="/register/">register</a>
 						{% endif %}
 				</div>
+				<div style="clear:both"></div>
 			</div>
 			<div class="spacer"></div>
-		
-			{% block head %}{% endblock %}
+			<div id="content">
+				<div id="header">
+					{% block head %}{% endblock %}
+				</div>
 			
-			{% block content %}{% endblock %}
+				{% block content %}{% endblock %}
+			</div>
 		</div>
 	</body>
 </html>
