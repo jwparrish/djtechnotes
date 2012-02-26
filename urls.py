@@ -24,6 +24,7 @@ urlpatterns = patterns('',
 	(r'^changepwdone/$', 'django.contrib.auth.views.password_change_done'),
 	(r'^save/$', note_save_page),
 	(r'^tag/(.+)/$', tag_page),
+	(r'^tag/$', tag_cloud_page),
 	
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 #	(r'^(?P<path>.+)$', fake_redirect),

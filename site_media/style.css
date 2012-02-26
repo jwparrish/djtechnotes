@@ -4,7 +4,7 @@
 #nav {
 	float: right;
 	width: 200px;
-	padding-top: 15px;
+	padding-top: 10px;
 }
 
 #titlebar {
@@ -16,7 +16,7 @@
 	color: #FFF;
 	float: left;
 	margin: 0;
-	padding: 15px 0 0 5px;
+	padding: 10px 0 0 5px;
 	width: 304px;
 }
 
@@ -28,6 +28,21 @@
 #content {
 	padding: 0 5px 0 5px;
 }
+
+#tag-cloud {
+	text-align: center;
+}
+
+#tag-cloud a {
+	margin: 0 0.2em;
+}
+
+.tag-cloud-0 { font-size: 100%; }
+.tag-cloud-1 { font-size: 120%; }
+.tag-cloud-2 { font-size: 140%; }
+.tag-cloud-3 { font-size: 160%; }
+.tag-cloud-4 { font-size: 180%; }
+.tag-cloud-5 { font-size: 200%; }
 
 input {
 	display: block;
