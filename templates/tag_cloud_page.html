@@ -4,9 +4,9 @@
 {% block content %}
 	<div id="tag-cloud">
 		{% for tag in tags %}
-			<a href="/tag/{{ tag.name }}/"
+			<a href="/tag/{{ tag.name|urlencode }}/"
 			class="tag-cloud-{{ tag.weight }}">
-				{{ tag.name }}</a>
+				{{ tag.name|escape }}</a>
 		{% endfor %}
 	</div>
 {% endblock %}

@@ -2,7 +2,7 @@
 	<ul class="notelist">
 		{% for note in notes %}
 			<li class="notelist">	
-				<a href="/user/{{ note.user.username }}/note/{{ note.id }}">{{ note.title }}</a>
+				<a href="/user/{{ note.user.username }}/note/{{ note.id }}">{{ note.title|escape }}</a>
 				<br />
 				{% if show_tags %}
 					Tags:
@@ -10,7 +10,7 @@
 						<ul class="tags">
 							{% for tag in note.tag_set.all %}
 								<li>
-									<a href="/tag/{{ tag.name }}/">{{ tag.name }}</a>
+									<a href="/tag/{{ tag.name|urlencode }}/">{{ tag.name|escape }}</a>
 								</li>
 							{% endfor %}
 						</ul>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Tag: {{ tag_name }}{% endblock %}
-{% block head %}Notes for tag: {{ tag_name }}{% endblock %}
+{% block title %}Tag: {{ tag_name|escape }}{% endblock %}
+{% block head %}Notes for tag: {{ tag_name|escape }}{% endblock %}
 {% block content %}
 	{% include "note_list.html" %}
 {% endblock %}
