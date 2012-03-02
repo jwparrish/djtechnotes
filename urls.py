@@ -25,6 +25,7 @@ urlpatterns = patterns('',
 	(r'^save/$', note_save_page),
 	(r'^tag/(.+)/$', tag_page),
 	(r'^tag/$', tag_cloud_page),
+	(r'^search/$', search_page),
 	
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 #	(r'^(?P<path>.+)$', fake_redirect),

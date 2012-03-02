@@ -139,3 +139,24 @@ def tag_cloud_page(request):
 		'tags': tags
 	})
 	return render_to_response('tag_cloud_page.html', variables)
+	
+def search_page(request):
+	form = SearchForm()
+	notes = []
+	show_results = False
+	if request.GET.has_key('query'):
+		show_results = True
+		query = request.GET['query'].strip()
+		if query:
+			form = SearchForm({'query': query})
+			notes = Note.objects.filter(title__icontains=query)[:10]
+	variables = RequestContext(request, {'form': form,
+		'notes': notes,
+		'show_results': show_results,
+		'show_tags': True,
+		'show_user': True
+	})
+	if request.GET.has_key('ajax'):
+		return render_to_response('note_list.html', variables)
+	else:
+		return render_to_response('search.html', variables)

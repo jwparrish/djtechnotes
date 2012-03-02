@@ -3,7 +3,7 @@
 
 #nav {
 	float: right;
-	width: 200px;
+	width: 250px;
 	padding-top: 10px;
 }
 
@@ -70,5 +70,9 @@ ul.tags, ul.tags li {
 
 .titleDivider {
 	color: #06c;
+}
+
+#search-results {
+	margin-top: 10px;
 }
 
