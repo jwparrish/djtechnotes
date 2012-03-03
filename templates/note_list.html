@@ -2,10 +2,11 @@
 	<ul class="notelist">
 		{% for note in notes %}
 			<li class="notelist">	
+				Title:
 				<a href="/user/{{ note.user.username }}/note/{{ note.id }}">{{ note.title|escape }}</a>
 				<br />
 				{% if show_tags %}
-					Tags:
+					Tags: <span style="font-weight:bold">(</span>
 					{% if note.tag_set.all %}
 						<ul class="tags">
 							{% for tag in note.tag_set.all %}
@@ -17,6 +18,7 @@
 					{% else %}
 						None.
 					{% endif %}
+					<span style="font-weight:bold">)</span>
 					<br />
 				{% endif %}
 				{% if show_user %}
