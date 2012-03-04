@@ -76,3 +76,7 @@ ul.tags, ul.tags li {
 	margin-top: 10px;
 }
 
+ul.notelist .edit {
+	font-size: 70%;
+	color: #000;
+}

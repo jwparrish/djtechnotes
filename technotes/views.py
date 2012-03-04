@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 from technotes.forms import *
 from technotes.models import *
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def main_page(request):
@@ -24,6 +25,7 @@ def user_page(request, username):
 		'notes': notes,
 		'show_tags': True,
 		'show_user': False,
+		'show_edit': username == request.user.username,
 	})
 	return render_to_response('user_page.html', variables)
 
@@ -64,6 +66,8 @@ def note_save_page(request):
 	if request.method == 'POST':
 		form = NoteSaveForm(request.POST)
 		if form.is_valid():
+			note = _note_save(request, form)
+			""" Legacy code
 			#Create or get note
 			note, created = Note.objects.get_or_create(
 				user = request.user,
@@ -80,9 +84,28 @@ def note_save_page(request):
 				note.tag_set.add(tag)
 			#Save Note to DB
 			note.save()
+			"""
 			return HttpResponseRedirect(
 				'/user/%s/' % request.user.username
 			)
+	elif request.GET.has_key('title'):
+		title = request.GET['title']
+		tags = ''
+		note = ''
+		try:
+			grabnote = Note.objects.get(title=title)
+			note = grabnote.note
+			tags = ' '.join(
+				tag.name for tag in grabnote.tag_set.all()
+			)
+			
+		except ObjectDoesNotExist:
+			pass
+		form = NoteSaveForm({
+			'note': note,
+			'title': title,
+			'tags': tags
+		})
 	else:
 		form = NoteSaveForm()
 	variables = RequestContext(request, {
@@ -160,3 +183,24 @@ def search_page(request):
 		return render_to_response('note_list.html', variables)
 	else:
 		return render_to_response('search.html', variables)
+		
+		
+def _note_save(request, form):
+	#Create or get note
+	note, created = Note.objects.get_or_create(
+		user = request.user,
+		note = form.cleaned_data['note'],
+		title = form.cleaned_data['title'],
+	)
+	#If the note is being updated, clear old tag list.
+	if not created:
+		note.tag_set.clear()
+	#Create new tag list.
+	tag_names = form.cleaned_data['tags'].split()
+	for tag_name in tag_names:
+		tag, created = Tag.objects.get_or_create(name=tag_name)
+		note.tag_set.add(tag)
+	#Save Note to DB
+	note.save()
+	return note
+	

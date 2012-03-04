@@ -4,6 +4,10 @@
 			<li class="notelist">	
 				Title:
 				<a href="/user/{{ note.user.username }}/note/{{ note.id }}">{{ note.title|escape }}</a>
+				{% if show_edit %}
+					<a href="/save/?title={{ note.title|escape }}"
+						class="edit">[edit]</a>
+				{% endif %}
 				<br />
 				{% if show_tags %}
 					Tags: <span style="font-weight:bold">(</span>
