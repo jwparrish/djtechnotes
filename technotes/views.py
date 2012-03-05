@@ -64,9 +64,14 @@ def register_page(request):
 @login_required
 def note_save_page(request):
 	if request.method == 'POST':
-		form = NoteSaveForm(request.POST)
-		if form.is_valid():
-			note = _note_save(request, form)
+		if request.POST.has_key('noteid'):
+			form = NoteEditForm(request.POST)
+			if form.is_valid():
+				note = _note_save(request, form)
+		else:	
+			form = NoteSaveForm(request.POST)
+			if form.is_valid():
+				note = _note_save(request, form)
 			""" Legacy code
 			#Create or get note
 			note, created = Note.objects.get_or_create(
@@ -85,26 +90,28 @@ def note_save_page(request):
 			#Save Note to DB
 			note.save()
 			"""
-			return HttpResponseRedirect(
-				'/user/%s/' % request.user.username
-			)
+		return HttpResponseRedirect(
+			'/user/%s/' % request.user.username
+		)
 	elif request.GET.has_key('title'):
 		title = request.GET['title']
 		tags = ''
 		note = ''
 		try:
-			grabnote = Note.objects.get(title=title)
-			note = grabnote.note
+			originalNote = Note.objects.get(title=title)
+			note = originalNote.note
+			noteid = originalNote.id
 			tags = ' '.join(
-				tag.name for tag in grabnote.tag_set.all()
+				tag.name for tag in originalNote.tag_set.all()
 			)
 			
 		except ObjectDoesNotExist:
 			pass
-		form = NoteSaveForm({
+		form = NoteEditForm({
 			'note': note,
 			'title': title,
-			'tags': tags
+			'tags': tags,
+			'noteid': noteid,
 		})
 	else:
 		form = NoteSaveForm()
@@ -186,20 +193,26 @@ def search_page(request):
 		
 		
 def _note_save(request, form):
-	#Create or get note
-	note, created = Note.objects.get_or_create(
-		user = request.user,
-		note = form.cleaned_data['note'],
-		title = form.cleaned_data['title'],
-	)
-	#If the note is being updated, clear old tag list.
-	if not created:
-		note.tag_set.clear()
-	#Create new tag list.
-	tag_names = form.cleaned_data['tags'].split()
-	for tag_name in tag_names:
-		tag, created = Tag.objects.get_or_create(name=tag_name)
-		note.tag_set.add(tag)
+	try:
+		note = Note.objects.get(id=form.cleaned_data['noteid'])
+		note.user = request.user
+		note.note = form.cleaned_data['note']
+		note.title = form.cleaned_data['title']
+	except:
+		#Create or get note
+		note, created = Note.objects.get_or_create(
+			user = request.user,
+			note = form.cleaned_data['note'],
+			title = form.cleaned_data['title'],
+		)
+		#If the note is being updated, clear old tag list.
+		if not created:
+			note.tag_set.clear()
+		#Create new tag list.
+		tag_names = form.cleaned_data['tags'].split()
+		for tag_name in tag_names:
+			tag, created = Tag.objects.get_or_create(name=tag_name)
+			note.tag_set.add(tag)
 	#Save Note to DB
 	note.save()
 	return note

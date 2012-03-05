@@ -62,4 +62,22 @@ class SearchForm(forms.Form):
 		widget = forms.TextInput(attrs={'size': 32})
 	)
 		
+class NoteEditForm(forms.Form):
+	title = forms.CharField(
+		label = 'Title',
+		widget = forms.TextInput(attrs={'size': 64})
+	)
+	note = forms.CharField(
+		label = 'Note',
+		widget = forms.widgets.Textarea(attrs={'class': 'noteinput'})
+	)
+	tags = forms.CharField(
+		label = 'Tags',
+		required = False,
+		widget = forms.TextInput(attrs={'size':64})
+	)
+	noteid = forms.CharField(
+		label='NoteID',
+		widget = forms.TextInput(attrs={'size': 3})
+	)
 		
