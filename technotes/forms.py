@@ -78,6 +78,6 @@ class NoteEditForm(forms.Form):
 	)
 	noteid = forms.CharField(
 		label='NoteID',
-		widget = forms.TextInput(attrs={'size': 3})
+		widget=forms.HiddenInput()
 	)
 		
