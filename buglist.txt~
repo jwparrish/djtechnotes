@@ -1,0 +1,1 @@
+- Note edit does not take blank entries, but rather enters last entry if nothing at all is entered.  Seems as though form validation is failing on any of the fields for editing or creating a note.

@@ -80,3 +80,8 @@ ul.notelist .edit {
 	font-size: 70%;
 	color: #000;
 }
+
+.welcome {
+	font-weight: bold;
+	color: #06c;
+}

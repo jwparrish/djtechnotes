@@ -6,8 +6,8 @@
 
 {% block content %}
 	{% if user.username %}
-		<p>Welcome {{ user.username }}!  techNotes is a Knowledge Base for Tech Support!</p>
+		<p>Welcome <span class="welcome">{{ user.username }}</span>!  techNotes is a Knowledge Base for Tech Support!</p>
 	{% else %}
-		<p>Welcome anonymous user!  You need to <a href="/login/">login</a> before you can create or view notes.</p>
+		<p>Welcome <span class="welcome">anonymous user</span>!  You need to <a href="/login/">login</a> before you can create or view notes.</p>
 	{% endif %}
 {% endblock %}
