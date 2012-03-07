@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+{% block external %}
+	<link rel="stylesheet" href="/site_media/autocomplete/jquery.autocomplete.css" type="text/css" />
+	<script type="text/javascript" src="/site_media/autocomplete/dimensions.js"></script>
+	<script type="text/javascript" src="/site_media/autocomplete/jquery.bgiframe.min.js"></script>
+	<script type="text/javascript" src="/site_media/autocomplete/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="/site_media/tag_autocomplete.js"></script>
+{% endblock %}
 {% block title %}Save Note{% endblock %}
 {% block head %}Save Note{% endblock %}
 {% block content %}
