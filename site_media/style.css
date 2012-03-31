@@ -85,3 +85,7 @@ ul.notelist .edit {
 	font-weight: bold;
 	color: #06c;
 }
+
+.quiet {
+    color: #9e9e9e;
+}

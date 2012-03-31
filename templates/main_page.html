@@ -5,9 +5,16 @@
 {% block head %}{% endblock %}
 
 {% block content %}
-	{% if user.username %}
-		<p>Welcome <span class="welcome">{{ user.username }}</span>!  techNotes is a Knowledge Base for Tech Support!</p>
-	{% else %}
-		<p>Welcome <span class="welcome">anonymous user</span>!  You need to <a href="/login/">login</a> before you can create or view notes.</p>
-	{% endif %}
+
+	<div class="hero-unit">
+		
+		<h2>techNotes <span class="quiet">| One mind in Tech Support</span></h2>
+		
+		{% if user.is_authenticated %}
+			<p>Welcome <span class="welcome">{{ user.username }}</span>!  techNotes is a Knowledge Base for Tech Support!</p>
+		{% else %}
+			<p>Welcome <span class="welcome">anonymous user</span>!  You need to <a href="/login/">login</a> before you can create or view notes.</p>
+		{% endif %}
+	</div>
+	
 {% endblock %}
