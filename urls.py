@@ -27,6 +27,7 @@ urlpatterns = patterns('',
 	(r'^tag/$', tag_cloud_page),
 	(r'^search/$', search_page),
 	(r'^ajax/tag/autocomplete/$', ajax_tag_autocomplete),
+	(r'^admin/', include('django.contrib.admin.urls')),
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 #	(r'^(?P<path>.+)$', fake_redirect),
 )
