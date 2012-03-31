@@ -1,5 +1,5 @@
 body {
-	margin-top: 45px;
+	margin-top: 60px;
 }
 
 #container {
@@ -47,10 +47,6 @@ body {
 .tag-cloud-3 { font-size: 160%; }
 .tag-cloud-4 { font-size: 180%; }
 .tag-cloud-5 { font-size: 200%; }
-
-input {
-	display: block;
-}
 
 .notelist {
 	list-style-type: none;

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block external %}
-	<script type="text/javascript" src="/site_media/search.js"></script>
-{% endblock %}
+
 {% block title %}Search Notes{% endblock %}
+
 {% block head %}Search Notes{% endblock %}
+
 {% block content %}
 	<form id="search-form" method="get" action=".">
 		{{ form.as_p }}
@@ -14,4 +14,4 @@
 			{% include 'note_list.html' %}
 		{% endif %}
 	</div>
-{% endblock %}
+{% endblock %}{% endblock %}
