@@ -1,44 +1,32 @@
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.template import Context, RequestContext
 from django.template.loader import get_template
-from django.contrib.auth.models import User
-from django.shortcuts import render_to_response, get_object_or_404
-from django.contrib.auth import logout
+
 from technotes.forms import *
 from technotes.models import *
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
-
 
 def main_page(request):
-	return render_to_response(
-		'main_page.html', RequestContext(request),
-	)
-
+	return render(request, 'main_page.html')
 
 def user_page(request, username):
 	user = get_object_or_404(User, username=username)
 	notes = user.note_set.order_by('-id')
 	#notes = Note.objects.filter(user__username=username)
-	variables = RequestContext(request, {
-		'username' : username,
-		'notes': notes,
-		'show_tags': True,
-		'show_user': False,
-		'show_edit': username == request.user.username,
-	})
-	return render_to_response('user_page.html', variables)
+	return render(request, 'user_page.html', {'username': username,
+		'notes': notes, 'show_tags': True, 'show_user': False, 
+		'show_edit': username == request.user.username })
 
 #legacy
 def note_page(request, username):
 	user = User.objects.get(username=username)
 	notes = Note.objects.filter(user__username=user)
-	variables = RequestContext(request, {
-		'username': username,
-		'notes': notes,
-	})
-	return render_to_response('note.html', variables)
-	
+	return render(request, 'note.html', {
+		'username': username, 'notes': notes })
 	
 def logout_page(request):
 	logout(request)
@@ -56,10 +44,7 @@ def register_page(request):
 			return HttpResponseRedirect('/register/success/')
 	else:
 		form = RegistrationForm()
-	variables = RequestContext(request, {
-		'form': form
-	})
-	return render_to_response('registration/register.html', variables)
+	return render(request, 'registration/register.html', {'form': form })
 	
 @login_required
 def note_save_page(request):
@@ -115,10 +100,7 @@ def note_save_page(request):
 		})
 	else:
 		form = NoteSaveForm()
-	variables = RequestContext(request, {
-		'form': form
-	})
-	return render_to_response('note_save.html', variables)
+	return render(request, 'note_save.html', {'form': form })
 	
 #def fake_redirect(request, path):
 #	if request.user.is_authenticated:
@@ -128,22 +110,13 @@ def note_save_page(request):
 
 def display_note(request, username, noteid):
 	note = Note.objects.get(id=noteid)
-	variables = RequestContext(request, {
-		'username': username,
-		'note': note
-	})
-	return render_to_response('note.html', variables)
+	return render(request, 'note.html', {'username': username, 'note': note })
 	
 def tag_page(request, tag_name):
 	tag = get_object_or_404(Tag, name=tag_name)
 	notes = tag.notes.order_by('-id')
-	variables = RequestContext(request, {
-		'notes': notes,
-		'tag_name': tag_name,
-		'show_tags': True,
-		'show_user': True,
-	})
-	return render_to_response('tag_page.html', variables)
+	return render(request, 'tag_page.html', {'notes': notes, 
+		'tag_name': tag_name, 'show_tags': True, 'show_user': True })
 	
 def tag_cloud_page(request):
 	MAX_WEIGHT = 5
@@ -165,10 +138,7 @@ def tag_cloud_page(request):
 		tag.weight = int(
 			MAX_WEIGHT * (tag.count - min_count) / range
 		)
-	variables = RequestContext(request, {
-		'tags': tags
-	})
-	return render_to_response('tag_cloud_page.html', variables)
+	return render(request, 'tag_cloud_page.html', {'tags': tags })
 	
 def search_page(request):
 	form = SearchForm()
@@ -180,16 +150,19 @@ def search_page(request):
 		if query:
 			form = SearchForm({'query': query})
 			notes = Note.objects.filter(title__icontains=query)[:10]
-	variables = RequestContext(request, {'form': form,
+	
+	variables = {
+		'form': form, 
 		'notes': notes,
 		'show_results': show_results,
 		'show_tags': True,
 		'show_user': True
-	})
+	}
+	
 	if request.GET.has_key('ajax'):
-		return render_to_response('note_list.html', variables)
+		return render(request, 'note_list.html', variables)
 	else:
-		return render_to_response('search.html', variables)
+		return render(request, 'search.html', variables)
 		
 		
 def _note_save(request, form):
