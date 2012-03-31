@@ -1,13 +1,14 @@
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.template import Context, RequestContext
 from django.template.loader import get_template
-from django.contrib.auth.models import User
-from django.shortcuts import render_to_response, get_object_or_404
-from django.contrib.auth import logout
+
 from technotes.forms import *
 from technotes.models import *
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
 
 
 def main_page(request):
