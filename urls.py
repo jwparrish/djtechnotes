@@ -7,8 +7,8 @@ import os.path
 site_media = os.path.join(os.path.dirname(__file__), 'site_media')
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
 	(r'^$', main_page),
@@ -27,6 +27,8 @@ urlpatterns = patterns('',
 	(r'^tag/$', tag_cloud_page),
 	(r'^search/$', search_page),
 	(r'^ajax/tag/autocomplete/$', ajax_tag_autocomplete),
+	#(r'^admin/', include('django.contrib.admin.urls')),
+	url(r'^admin/', include(admin.site.urls)),
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 #	(r'^(?P<path>.+)$', fake_redirect),
 )
