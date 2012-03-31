@@ -1,14 +1,10 @@
 {% extends "base.html" %}
-{% block external %}
-	<script type="text/javascript" src="/site_media/search.js"></script>
-{% endblock %}
+
 {% block title %}Search Notes{% endblock %}
+
 {% block head %}Search Notes{% endblock %}
+
 {% block content %}
-	<form id="search-form" method="get" action=".">
-		{{ form.as_p }}
-		<input type="submit" value="search" />
-	</form>
 	<div id="search-results">
 		{% if show_results %}
 			{% include 'note_list.html' %}
