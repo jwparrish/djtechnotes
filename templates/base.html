@@ -21,7 +21,38 @@
 	<body>
 		
 		<div id="container">
-			<div id="titlebar">
+			
+			<!-- http://twitter.github.com/bootstrap/components.html#navbar -->
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+
+						<a class="brand" href="#">techNotes</a>
+						
+						<ul class="nav">
+						  <li class="active">
+						    <a href="/">home</a>
+						  </li>
+						  {% if user.is_authenticated %}
+								<li><a href="/save/">submit</a></li>
+								<li><a href="/search/">search</a></li>
+								<li><a href="/user/{{ user.username }}/">my notes</a></li>
+								<li><a href="/logout/">logout</a></li>
+							{% else %}
+								<li><a href="/login/">login</a></li>
+								<li><a href="/register/">register</a></li>
+							{% endif %}
+						</ul>
+						
+						<form class="navbar-search pull-right">
+						  <input type="text" class="search-query" placeholder="Search">
+						</form>
+
+					</div> <!-- /container -->
+				</div> <!-- /navbar-inner -->
+			</div> <!-- /navbar navbar-fixed-top -->
+			
+			<!-- div id="titlebar">
 				<h3>techNotes <span class="titleDivider">|</span> One mind in Tech Support</h3>
 				
 				<div id="nav">
@@ -38,7 +69,7 @@
 						{% endif %}
 				</div>
 				<div style="clear:both"></div>
-			</div>
+			</div -->
 			<div class="spacer"></div>
 			<div id="content">
 				<div id="header">
