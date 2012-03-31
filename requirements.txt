@@ -1,0 +1,5 @@
+# Python Package Requirements File
+# More info: http://pypi.python.org/pypi/pip
+
+Django==1.3.1
+PIL
