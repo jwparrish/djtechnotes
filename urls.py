@@ -1,13 +1,14 @@
-from django.conf.urls.defaults import patterns, include, url
-from django.views.generic.simple import direct_to_template
-from django.contrib.auth.views import logout
-from technotes.views import *
 import os.path
+
+from django.conf.urls.defaults import patterns, include, url
+from django.contrib import admin
+from django.contrib.auth.views import logout
+from django.views.generic.simple import direct_to_template
+
+from technotes.views import *
 
 site_media = os.path.join(os.path.dirname(__file__), 'site_media')
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -25,26 +26,9 @@ urlpatterns = patterns('',
 	(r'^save/$', note_save_page),
 	(r'^tag/(.+)/$', tag_page),
 	(r'^tag/$', tag_cloud_page),
-	(r'^search/$', search_page),
+	url(r'^search/$', search_page, name="search"),
 	(r'^ajax/tag/autocomplete/$', ajax_tag_autocomplete),
 	url(r'^admin/', include(admin.site.urls)),
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 #	(r'^(?P<path>.+)$', fake_redirect),
 )
-
-
-""" ORIGINAL URL EXAMPLES """
-
-    # Examples:
-    # url(r'^$', 'djtechnotes.views.home', name='home'),
-    # url(r'^djtechnotes/', include('djtechnotes.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
-#)
-
-
-
