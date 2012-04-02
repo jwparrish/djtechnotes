@@ -40,7 +40,7 @@
 						</ul>
 						
 						<form action="{% url search %}" method="get" id="search-form" class="navbar-search pull-right">
-						  <input type="text" class="search-query" name="query" id="id_query" placeholder="Search" {% if request.GET.query %}value="{{ request.GET.query }}"{% endif %}>
+						  <input type="text" class="search-query" name="query" id="id_query" placeholder="Search" {% if query %}value="{{ query }}"{% endif %}>
 						</form>
 			
 					</div> <!-- /container -->
