@@ -90,3 +90,7 @@ ul.notelist .edit {
 .quiet {
     color: #9e9e9e;
 }
+
+#save_buttons {
+	outline: 2px solid black;
+}

@@ -81,4 +81,8 @@ class NoteEditForm(forms.Form):
 		label='NoteID',
 		widget=forms.HiddenInput()
 	)
+	
+class UploadFileForm(forms.Form):
+	#title = forms.CharField(max_length=50)
+	upFile = forms.FileField()
 		

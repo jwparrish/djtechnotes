@@ -53,28 +53,15 @@ def note_save_page(request):
 			form = NoteEditForm(request.POST)
 			if form.is_valid():
 				note = _note_save(request, form)
+		#elif:
+			#if 'import' in request.POST:
+			#	context = uploadFile(request)
+				
 		else:	
 			form = NoteSaveForm(request.POST)
 			if form.is_valid():
 				note = _note_save(request, form)
-			""" Legacy code
-			#Create or get note
-			note, created = Note.objects.get_or_create(
-				user = request.user,
-				note = form.cleaned_data['note'],
-				title = form.cleaned_data['title'],
-			)
-			#If the note is being updated, clear old tag list.
-			if not created:
-				note.tag_set.clear()
-			#Create new tag list.
-			tag_names = form.cleaned_data['tags'].split()
-			for tag_name in tag_names:
-				tag, created = Tag.objects.get_or_create(name=tag_name)
-				note.tag_set.add(tag)
-			#Save Note to DB
-			note.save()
-			"""
+
 		return HttpResponseRedirect(
 			'/user/%s/' % request.user.username
 		)
@@ -196,4 +183,25 @@ def ajax_tag_autocomplete(request):
 		tags = Tag.objects.filter(name__istartswith=request.GET['q'])[:10]
 		return HttpResponse('\n'.join(tag.name for tag in tags))
 	return HttpResponse()
+	
+def uploadFile(request):
+	if request.method == 'POST':
+		upFile = request.FILES['upFile']
+		showUpload = True
+		
+		if upFile.multiple_chunks():
+			context['uploadError'] = 'Uploaded file is too big (%.2f MB).' % (upFile.size,)
+		else:
+			upContent = upFile.read()
+			newNote = NoteSaveForm(initial={'note': upContent})
+			context = {
+				'showUpload': showUpload,
+				'newNote': newNote,
+			}
+		return render(request, 'upload.html', context)
+	else:
+		form = UploadFileForm()
+		showUploadForm = True
+		context = {'form': form, 'showUploadForm': showUploadForm}
+	return render(request, 'upload.html', context)
 	

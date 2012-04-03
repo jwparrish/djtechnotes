@@ -9,8 +9,13 @@
 {% block title %}Save Note{% endblock %}
 {% block head %}Save Note{% endblock %}
 {% block content %}
-	<form method="post" action="."> {% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="save" class="btn" />
-	</form>
+	<div id="save_buttons">
+		<form method="post" action="."> {% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="save" class="btn" />
+		</form>
+		<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
+			<input type="submit" value="import" name="import" class="btn" />
+		</form>
+	</div>
 {% endblock %}

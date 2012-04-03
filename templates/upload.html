@@ -1,8 +1,21 @@
 {% extends "base.html" %}
-{% block content %}
 
-	<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="upload" class="btn"/>
-	</form>
+{% block content %}
+	{% if showUploadForm %}
+		<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
+			{{ form.upFile }}
+			<input type="submit" value="upload" class="btn" />
+		</form>
+		<br />
+	{% endif %}
+	{% if showUpload %}
+		<div id="uploadedFileContent">
+			{% if uploadError %}
+				{{ uploadError }}
+			{% else %}
+				{{ newNote }}
+			{% endif %}
+		</div>
+	{% endif %}
 {% endblock %}
+	
