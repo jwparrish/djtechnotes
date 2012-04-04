@@ -53,9 +53,15 @@ def note_save_page(request):
 			form = NoteEditForm(request.POST)
 			if form.is_valid():
 				note = _note_save(request, form)
-		#elif:
-			#if 'import' in request.POST:
-			#	context = uploadFile(request)
+		elif 'import' in request.POST:
+			try:
+				context = uploadFile(request)
+				return render(request, 'note_save.html', context)
+			except:
+				form = NoteSaveForm()
+				uploadForm = UploadFileForm()
+				required = 'File required for import.'
+				return render(request, 'note_save.html', {'form': form, 'uploadForm': uploadForm, 'required': required })
 				
 		else:	
 			form = NoteSaveForm(request.POST)
@@ -87,7 +93,8 @@ def note_save_page(request):
 		})
 	else:
 		form = NoteSaveForm()
-	return render(request, 'note_save.html', {'form': form })
+		uploadForm = UploadFileForm()
+	return render(request, 'note_save.html', {'form': form, 'uploadForm': uploadForm })
 	
 #def fake_redirect(request, path):
 #	if request.user.is_authenticated:
@@ -185,23 +192,15 @@ def ajax_tag_autocomplete(request):
 	return HttpResponse()
 	
 def uploadFile(request):
-	if request.method == 'POST':
-		upFile = request.FILES['upFile']
-		showUpload = True
+	upFile = request.FILES['upFile']
 		
-		if upFile.multiple_chunks():
-			context['uploadError'] = 'Uploaded file is too big (%.2f MB).' % (upFile.size,)
-		else:
-			upContent = upFile.read()
-			newNote = NoteSaveForm(initial={'note': upContent})
-			context = {
-				'showUpload': showUpload,
-				'newNote': newNote,
-			}
-		return render(request, 'upload.html', context)
+	if upFile.multiple_chunks():
+		context['uploadError'] = 'Uploaded file is too big (%.2f MB).' % (upFile.size,)
 	else:
-		form = UploadFileForm()
-		showUploadForm = True
-		context = {'form': form, 'showUploadForm': showUploadForm}
-	return render(request, 'upload.html', context)
+		upContent = upFile.read()
+		form = NoteSaveForm(initial={'note': upContent})
+		context = {
+			'form': form,
+		}
+	return context
 	
