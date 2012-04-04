@@ -14,14 +14,17 @@
 			{{ form.as_p }}
 			<input type="submit" value="save" class="btn" />
 		</form>
-		{% if uploadForm %}
-			{% if required %}
-				<span style="font-weight:bold; color: #F00;">{{ required }}</span>
+			{% if uploadForm %}
+				<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
+					<input type="submit" value="import" name="import" class="btn" />
+						<div id="uploadFileForm">
+							<br />
+							{{ uploadForm.upFile }}
+							{% if required %}
+								<span style="font-weight:bold; color: #F00;">{{ required }}</span>
+							{% endif %}
+						</div>
+				</form>
 			{% endif %}
-			<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
-				<input type="submit" value="import" name="import" class="btn" />
-					{{ uploadForm.upFile }}
-			</form>
-		{% endif %}
 	</div>
 {% endblock %}
