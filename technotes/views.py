@@ -67,6 +67,8 @@ def note_save_page(request):
 			form = NoteSaveForm(request.POST)
 			if form.is_valid():
 				note = _note_save(request, form)
+			else:
+				return render(request, 'note_save.html', {'form': form})
 
 		return HttpResponseRedirect(
 			'/user/%s/' % request.user.username
