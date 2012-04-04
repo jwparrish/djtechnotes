@@ -91,6 +91,7 @@ def note_save_page(request):
 			'tags': tags,
 			'noteid': noteid,
 		})
+		return render(request, 'note_save.html', {'form': form })
 	else:
 		form = NoteSaveForm()
 		uploadForm = UploadFileForm()
