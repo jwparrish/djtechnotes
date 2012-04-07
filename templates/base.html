@@ -64,6 +64,14 @@
 		<!-- JavaScript is placed at the bottom of the page for better loading performance. -->
 		<!-- Try loading jQuery from Google's CDN first as it's faster and had cache advantages... -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="/static/js/bootstrap-dropdown.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('.dropdown-menu').find('form').click(function(e) {
+					e.stopPropagation();
+				});
+			});
+		</script>
 		<!-- If Google's hosted jQuery didn't load, we load our local copy of jQuery. -->
 		<script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/jquery-1.7.1.js"><\/script>')</script>
 		
