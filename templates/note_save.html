@@ -16,29 +16,36 @@
 				<input type="submit" value="save" class="btn" />
 			</div>
 		</form>
-			{% if uploadForm %}
-				<div id="import_button">
-					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						import
-						<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
-								<div id="uploadFileForm">
-									<br />
-									{{ uploadForm.upFile }}
-									<input type="submit" value="import" name="import" class="btn" />
-									<!--
-									{% if required %}
-										<span style="font-weight:bold; color: #F00;">{{ required }}</span>
-									{% endif %}
-									-->
-								</div>
-							</form>
-						</ul>
-					</div>
+		{% if uploadForm %}
+			<div id="import_button">
+				<div class="btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					import
+					<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
+							<div id="uploadFileForm">
+								<br />
+								{{ uploadForm.upFile }}
+								<input type="submit" value="import" name="import" class="btn" />
+								<!--
+								{% if required %}
+									<span style="font-weight:bold; color: #F00;">{{ required }}</span>
+								{% endif %}
+								-->
+							</div>
+						</form>
+					</ul>
 				</div>
-			{% endif %}
+			</div>
+		{% endif %}
+		{% if uploadForm %}
+			<div id="cancel_button"> <!-- fix for padding issue for save button input div -->
+		{% else %}
+			<div id="cancel_button_uploadForm">
+		{% endif %}
+				or <a href="/user/{{ user.username }}">cancel</a>
+			</div>
 	</div>
 {% endblock %}
