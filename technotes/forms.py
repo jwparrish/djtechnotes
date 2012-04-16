@@ -96,4 +96,4 @@ class UploadPDF(forms.Form):
 		required = False,
 		widget = forms.TextInput(attrs={'size':64})
 	)
-	upPDF = forms.FileField(label = 'Upload PDF')
+	upPDF = forms.FileField(label = 'Upload')

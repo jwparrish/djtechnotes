@@ -28,10 +28,11 @@ body {
 #header{
 	font-weight: bold;
 	font-size: 150%;
+	margin-bottom: 10px;
 }
 
 #content {
-	padding: 0 5px 0 5px;
+	padding: 5px 5px 0 5px;
 }
 
 #tag-cloud {
@@ -109,3 +110,4 @@ ul.notelist .edit {
 	float: left;
 	margin: 5px 0 0 0;
 }
+

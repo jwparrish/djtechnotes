@@ -9,7 +9,11 @@
 {% block title %}Save Note{% endblock %}
 {% block head %}Save Note{% endblock %}
 {% block content %}
-	<div class="tabbable tabs-below">
+	<div class="tabbable">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#1" data-toggle="tab">create</a></li>
+			<li><a href="#2" data-toggle="tab">upload</a></li>
+		</ul> <!-- end ul for nav tabs -->
 		<div class="tab-content">
 			<div class="tab-pane active" id="1">
 				<div id="save_buttons">
@@ -63,9 +67,6 @@
 				</div>
 			</div> <!-- end tab 2 -->
 		</div> <!-- end tab content -->
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#1" data-toggle="tab">create</a></li>
-			<li><a href="#2" data-toggle="tab">upload</a></li>
-		</ul> <!-- end ul for nav tabs -->
 	</div>  <!-- end tabs -->
+
 {% endblock %}
