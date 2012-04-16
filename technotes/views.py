@@ -62,6 +62,15 @@ def note_save_page(request):
 				uploadForm = UploadFileForm()
 				required = 'File required for import.'
 				return render(request, 'note_save.html', {'form': form, 'uploadForm': uploadForm, 'required': required })
+		elif 'uploadPDF' in request.POST:
+			form = UploadPDF(request.POST, request.FILES)
+			note = Note(
+				user = request.user,
+				title = request.POST['title'],
+				file = request.FILES['upPDF']
+			)
+			note.save()
+			return HttpResponseRedirect('/user/%s/' % request.user.username)
 				
 		else:	
 			form = NoteSaveForm(request.POST)
@@ -97,7 +106,8 @@ def note_save_page(request):
 	else:
 		form = NoteSaveForm()
 		uploadForm = UploadFileForm()
-	return render(request, 'note_save.html', {'form': form, 'uploadForm': uploadForm })
+		uploadPDF = UploadPDF()
+	return render(request, 'note_save.html', {'form': form, 'uploadForm': uploadForm, 'uploadPDF': uploadPDF })
 	
 #def fake_redirect(request, path):
 #	if request.user.is_authenticated:

@@ -9,43 +9,63 @@
 {% block title %}Save Note{% endblock %}
 {% block head %}Save Note{% endblock %}
 {% block content %}
-	<div id="save_buttons">
-		<form method="post" action="."> {% csrf_token %}
-			{{ form.as_p }}
-			<div id="save_button">
-				<input type="submit" value="save" class="btn" />
-			</div>
-		</form>
-		{% if uploadForm %}
-			<div id="import_button">
-				<div class="btn-group">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					import
-					<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
-							<div id="uploadFileForm">
-								<br />
-								{{ uploadForm.upFile }}
-								<input type="submit" value="import" name="import" class="btn" />
-								<!--
-								{% if required %}
-									<span style="font-weight:bold; color: #F00;">{{ required }}</span>
-								{% endif %}
-								-->
+	<div class="tabbable tabs-below">
+		<div class="tab-content">
+			<div class="tab-pane active" id="1">
+				<div id="save_buttons">
+					<form method="post" action="."> {% csrf_token %}
+						{{ form.as_p }}
+						<div id="save_button">
+							<input type="submit" value="save" class="btn" />
+						</div>
+					</form>
+					{% if uploadForm %}
+						<div id="import_button">
+							<div class="btn-group">
+								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								import
+								<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
+										<div id="uploadFileForm">
+											<br />
+											{{ uploadForm.upFile }}
+											<input type="submit" value="import" name="import" class="btn" />
+											<!--
+											{% if required %}
+												<span style="font-weight:bold; color: #F00;">{{ required }}</span>
+											{% endif %}
+											-->
+										</div>
+									</form>
+								</ul>
 							</div>
-						</form>
-					</ul>
+						</div>
+					{% endif %}
+					{% if uploadForm %}
+						<div id="cancel_button"> <!-- fix for padding issue for save button input div -->
+					{% else %}
+						<div id="cancel_button_uploadForm">
+					{% endif %}
+							or <a href="/user/{{ user.username }}">cancel</a>
+						</div>
+				</div>  <!-- end #save_buttons -->
+				<br /><br />
+			</div> <!-- end tab 1 -->
+			<div class="tab-pane" id="2">
+				<div id="uploadPDF">
+					<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
+						{{ uploadPDF }}
+						<br />
+						<input type="submit" value="Upload" name="uploadPDF" class="btn" />
+					</form>
 				</div>
-			</div>
-		{% endif %}
-		{% if uploadForm %}
-			<div id="cancel_button"> <!-- fix for padding issue for save button input div -->
-		{% else %}
-			<div id="cancel_button_uploadForm">
-		{% endif %}
-				or <a href="/user/{{ user.username }}">cancel</a>
-			</div>
-	</div>
+			</div> <!-- end tab 2 -->
+		</div> <!-- end tab content -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#1" data-toggle="tab">create</a></li>
+			<li><a href="#2" data-toggle="tab">upload</a></li>
+		</ul> <!-- end ul for nav tabs -->
+	</div>  <!-- end tabs -->
 {% endblock %}

@@ -2,8 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Note(models.Model):
-	note = models.TextField()
+	note = models.TextField(blank=True)
 	title = models.CharField(max_length=200)
+	file = models.FileField(upload_to='pdf', blank=True)
 	user = models.ForeignKey(User)
 	
 	def __unicode__(self):
@@ -18,11 +19,3 @@ class Tag(models.Model):
 	
 	def __str__(self):
 		return self.name
-
-
-"""
-class Bookmark(models.Model):
-	title = models.CharField(max_length=200)
-	user = models.ForeignKey(User)
-	note = models.ForeignKey(Note)
-"""
