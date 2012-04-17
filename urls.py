@@ -29,7 +29,7 @@ urlpatterns = patterns('',
 	url(r'^search/$', search_page, name="search"),
 	(r'^ajax/tag/autocomplete/$', ajax_tag_autocomplete),
 	url(r'^admin/', include(admin.site.urls)),
-	(r'^upload/$', uploadFile),
+	(r'^import/$', importText),
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 #	(r'^(?P<path>.+)$', fake_redirect),
 )

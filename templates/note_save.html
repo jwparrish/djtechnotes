@@ -23,7 +23,7 @@
 							<input type="submit" value="save" class="btn" />
 						</div>
 					</form>
-					{% if uploadForm %}
+					{% if importForm %}
 						<div id="import_button">
 							<div class="btn-group">
 								<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -32,9 +32,9 @@
 								</a>
 								<ul class="dropdown-menu">
 									<form method="post" action="." enctype="multipart/form-data"> {% csrf_token %}
-										<div id="uploadFileForm">
+										<div id="importFileForm">
 											<br />
-											{{ uploadForm.upFile }}
+											{{ importForm.importFile}}
 											<input type="submit" value="import" name="import" class="btn" />
 											<!--
 											{% if required %}
@@ -47,10 +47,10 @@
 							</div>
 						</div>
 					{% endif %}
-					{% if uploadForm %}
+					{% if importForm %}
 						<div id="cancel_button"> <!-- fix for padding issue for save button input div -->
 					{% else %}
-						<div id="cancel_button_uploadForm">
+						<div id="cancel_button_importForm">
 					{% endif %}
 							or <a href="/user/{{ user.username }}">cancel</a>
 						</div>

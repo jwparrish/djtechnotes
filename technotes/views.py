@@ -55,22 +55,30 @@ def note_save_page(request):
 				note = _note_save(request, form)
 		elif 'import' in request.POST:
 			try:
-				context = uploadFile(request)
+				context = importText(request)
 				return render(request, 'note_save.html', context)
 			except:
 				form = NoteSaveForm()
-				uploadForm = UploadFileForm()
+				importForm = ImportFileForm()
 				required = 'File required for import.'
-				return render(request, 'note_save.html', {'form': form, 'uploadForm': uploadForm, 'required': required })
+				return render(request, 'note_save.html', {'form': form, 'importForm': importForm, 'required': required })
 		elif 'uploadPDF' in request.POST:
-			form = UploadPDF(request.POST, request.FILES)
-			note = Note(
-				user = request.user,
-				title = request.POST['title'],
-				file = request.FILES['upPDF']
-			)
-			note.save()
-			return HttpResponseRedirect('/user/%s/' % request.user.username)
+			form = UploadPDFForm(request.POST, request.FILES)
+			if form.is_valid():
+				note = Note.objects.create(
+					user = request.user,
+					title = form.cleaned_data['title'],
+					file = request.FILES['upPDF']
+				)
+				#Create new tag list.
+				tag_names = form.cleaned_data['tags'].split()
+				for tag_name in tag_names:
+					tag, created = Tag.objects.get_or_create(name=tag_name)
+					note.tag_set.add(tag)
+				note.save()
+				return HttpResponseRedirect('/user/%s/' % request.user.username)
+			else:
+				return HttpResponseRedirect('/save/#2/')
 				
 		else:	
 			form = NoteSaveForm(request.POST)
@@ -105,9 +113,9 @@ def note_save_page(request):
 		return render(request, 'note_save.html', {'form': form })
 	else:
 		form = NoteSaveForm()
-		uploadForm = UploadFileForm()
-		uploadPDF = UploadPDF()
-	return render(request, 'note_save.html', {'form': form, 'uploadForm': uploadForm, 'uploadPDF': uploadPDF })
+		importForm = ImportFileForm()
+		uploadPDF = UploadPDFForm()
+	return render(request, 'note_save.html', {'form': form, 'importForm': importForm, 'uploadPDF': uploadPDF })
 	
 #def fake_redirect(request, path):
 #	if request.user.is_authenticated:
@@ -204,14 +212,14 @@ def ajax_tag_autocomplete(request):
 		return HttpResponse('\n'.join(tag.name for tag in tags))
 	return HttpResponse()
 	
-def uploadFile(request):
-	upFile = request.FILES['upFile']
+def importText(request):
+	importedFile = request.FILES['importFile']
 		
-	if upFile.multiple_chunks():
-		context['uploadError'] = 'Uploaded file is too big (%.2f MB).' % (upFile.size,)
+	if importedFile.multiple_chunks():
+		context['uploadError'] = 'Uploaded file is too big (%.2f MB).' % (importedFile.size,)
 	else:
-		upContent = upFile.read()
-		form = NoteSaveForm(initial={'note': upContent})
+		importedContent = importedFile.read()
+		form = NoteSaveForm(initial={'note': importedContent})
 		context = {
 			'form': form,
 		}

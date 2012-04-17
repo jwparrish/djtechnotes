@@ -82,11 +82,10 @@ class NoteEditForm(forms.Form):
 		widget=forms.HiddenInput()
 	)
 	
-class UploadFileForm(forms.Form):
-	#title = forms.CharField(max_length=50)
-	upFile = forms.FileField()
+class ImportFileForm(forms.Form):
+	importFile = forms.FileField()
 		
-class UploadPDF(forms.Form):
+class UploadPDFForm(forms.Form):
 	title = forms.CharField(
 		label = 'Title',
 		widget = forms.TextInput(attrs={'size': 64})
