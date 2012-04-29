@@ -125,7 +125,10 @@ def note_save_page(request):
 
 def display_note(request, username, noteid):
 	note = Note.objects.get(id=noteid)
-	return render(request, 'note.html', {'username': username, 'note': note })
+	if note.file:
+		return render(request, 'show_pdf.html', {'username': username, 'note': note })
+	else:
+		return render(request, 'note.html', {'username': username, 'note': note })
 	
 def tag_page(request, tag_name):
 	tag = get_object_or_404(Tag, name=tag_name)

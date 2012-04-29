@@ -6,18 +6,4 @@
 
 {% block content %}
 	{% include "note_list.html" %}
-
-
-
-<!--  ############ FORMER NOTE LISTING METHOD #########################
-	{% if notes %}
-		<ul class="notelist">
-			{% for note in notes %}
-				<li class="notelist"><a href="note/{{ note.id }}">{{ note.title }}</a><li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<p>No notes found</p>
-	{% endif %}
--->
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ username }}{% endblock %}
+
+{% block head %}{{ note.title }}{% endblock %}
+
+{% block content %}
+	{% block external %}
+		<script type="text/javascript" src="/site_media/pdfobject.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var myPDF = new PDFObject({ url: "{{ note.file.url }}" }).embed();
+			});
+		</script>
+		
+	{% endblock %}
+
+<p>It appears you don't have Adobe Reader or PDF support in this web browser.  <a href="{{ note.file.url }}">Click here to download the PDF</a></p>
+{% endblock %}
