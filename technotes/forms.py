@@ -70,6 +70,7 @@ class NoteEditForm(forms.Form):
 	)
 	note = forms.CharField(
 		label = 'Note',
+		required = False,
 		widget = forms.widgets.Textarea(attrs={'class': 'noteinput'})
 	)
 	tags = forms.CharField(
@@ -96,3 +97,23 @@ class UploadPDFForm(forms.Form):
 		widget = forms.TextInput(attrs={'size':64})
 	)
 	upPDF = forms.FileField(label = 'Upload')
+	
+class UploadEditForm(forms.Form):
+	title = forms.CharField(
+		label = 'Title',
+		widget = forms.TextInput(attrs={'size': 64})
+	)
+	file = forms.CharField(
+		label = 'File',
+		required = False,
+		widget = forms.TextInput(attrs={'size': 64, 'readonly': True})
+	)
+	tags = forms.CharField(
+		label = 'Tags',
+		required = False,
+		widget = forms.TextInput(attrs={'size':64})
+	)
+	noteid = forms.CharField(
+		label='NoteID',
+		widget=forms.HiddenInput()
+	)

@@ -68,7 +68,8 @@ def note_save_page(request):
 				note = Note.objects.create(
 					user = request.user,
 					title = form.cleaned_data['title'],
-					file = request.FILES['upPDF']
+					file = request.FILES['upPDF'],
+					uploaded = True,
 				)
 				#Create new tag list.
 				tag_names = form.cleaned_data['tags'].split()
@@ -101,15 +102,25 @@ def note_save_page(request):
 			tags = ' '.join(
 				tag.name for tag in originalNote.tag_set.all()
 			)
+			file = originalNote.filename()
+			uploaded = originalNote.uploaded
 			
 		except ObjectDoesNotExist:
 			pass
-		form = NoteEditForm({
-			'note': note,
-			'title': title,
-			'tags': tags,
-			'noteid': noteid,
-		})
+		if uploaded:
+			form = UploadEditForm({
+				'title': title,
+				'tags': tags,
+				'file': file,
+				'noteid': noteid,
+			})
+		else:
+			form = NoteEditForm({
+				'note': note,
+				'title': title,
+				'tags': tags,
+				'noteid': noteid,
+			})
 		return render(request, 'note_save.html', {'form': form })
 	else:
 		form = NoteSaveForm()
