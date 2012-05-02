@@ -11,4 +11,5 @@ techNotes is a knowledgebase for Tech Support/Helpdesks
 * latest notes in sidebar
 * search pdf Word docs for keywords
 * updated form for note list, change to table layout
+* Routine to pull all notes from a directly and create notes only needing review before submissions
 
