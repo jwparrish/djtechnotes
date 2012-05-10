@@ -128,12 +128,6 @@ def note_save_page(request):
 		uploadPDF = UploadPDFForm()
 	return render(request, 'note_save.html', {'form': form, 'importForm': importForm, 'uploadPDF': uploadPDF })
 	
-#def fake_redirect(request, path):
-#	if request.user.is_authenticated:
-#		raise Http404()
-#	else:
-#		return HttpResponseRedirect('/login/?next=/%s' % path)
-
 def display_note(request, username, noteid):
 	note = Note.objects.get(id=noteid)
 	if note.file:
@@ -238,4 +232,12 @@ def importText(request):
 			'form': form,
 		}
 	return context
+
+""" FAKE REDIRECT
+def fake_redirect(request, path):
+	if request.user.is_authenticated:
+		raise Http404()
+	else:
+		return HttpResponseRedirect('/login/?next=/%s' % path)
+"""
 	
