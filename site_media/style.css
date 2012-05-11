@@ -111,3 +111,8 @@ ul.notelist .edit {
 	margin: 5px 0 0 0;
 }
 
+#delete_form {
+	margin: 0 5px 0 55px;
+	display: inline;
+}
+

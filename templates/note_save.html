@@ -20,7 +20,7 @@
 					<form method="post" action="."> {% csrf_token %}
 						{{ form.as_p }}
 						<div id="save_button">
-							<input type="submit" value="save" class="btn" />
+							<input type="submit" value="save" name="savenote" class="btn" />
 						</div>
 					</form>
 					{% if importForm %}
@@ -53,7 +53,14 @@
 						<div id="cancel_button_importForm">
 					{% endif %}
 							or <a href="/user/{{ user.username }}">cancel</a>
-						</div>
+						</div> <!-- end cancel button div logic-->
+					{% if delete %}
+						<form id="delete_form" method="post" action="."> {% csrf_token %}
+								<!--<a class="btn btn-danger" href="/save/?noteid={{ noteid }}">delete</a>-->
+								{{ form.noteid }}
+								<input type="submit" value="delete" name="delete" class="btn btn-danger" />
+						</form>
+					{% endif %}
 				</div>  <!-- end #save_buttons -->
 				<br /><br />
 			</div> <!-- end tab 1 -->
@@ -66,6 +73,7 @@
 					</form>
 				</div>
 			</div> <!-- end tab 2 -->
+		
 		</div> <!-- end tab content -->
 	</div>  <!-- end tabs -->
 
