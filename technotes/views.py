@@ -49,11 +49,15 @@ def register_page(request):
 @login_required
 def note_save_page(request):
 	if request.method == 'POST':
-		if 'savenote' in request.POST:
-		#if request.POST.has_key('noteid'):
-			form = NoteEditForm(request.POST)
-			if form.is_valid():
-				note = _note_save(request, form)
+		if request.POST.has_key('noteid'):
+			if 'delete' in request.POST:
+				note = Note.objects.get(id=request.POST['noteid'])
+				note.delete()
+				return HttpResponseRedirect('/user/%s/' % request.user.username)
+			else:
+				form = NoteEditForm(request.POST)
+				if form.is_valid():
+					note = _note_save(request, form)
 		elif 'import' in request.POST:
 			try:
 				context = importText(request)
@@ -81,9 +85,6 @@ def note_save_page(request):
 				return HttpResponseRedirect('/user/%s/' % request.user.username)
 			else:
 				return HttpResponseRedirect('/save/#2/')
-		elif 'delete' in request.POST:
-			note = Note.objects.get(id=request.POST['noteid'])
-			return render(request, 'test.html', {'note': note })
 		else:	
 			form = NoteSaveForm(request.POST)
 			if form.is_valid():
