@@ -166,7 +166,8 @@ def tag_cloud_page(request):
 			MAX_WEIGHT * (tag.count - min_count) / range
 		)
 	return render(request, 'tag_cloud_page.html', {'tags': tags })
-	
+
+@login_required
 def search_page(request):
 	form = SearchForm()
 	notes = []
