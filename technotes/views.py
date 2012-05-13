@@ -125,7 +125,7 @@ def note_save_page(request):
 				'tags': tags,
 				'noteid': noteid,
 			})
-		return render(request, 'note_save.html', {'form': form, 'delete': True})
+		return render(request, 'note_save.html', {'form': form, 'delete': True, 'disable_upload': True, 'edit': True})
 	else:
 		form = NoteSaveForm()
 		importForm = ImportFileForm()

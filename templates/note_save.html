@@ -11,8 +11,18 @@
 {% block content %}
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#1" data-toggle="tab">create</a></li>
-			<li><a href="#2" data-toggle="tab">upload</a></li>
+			{% if edit %}
+				<li class="active"><a href="#1" data-toggle="tab">edit</a></li>
+			{% else %}
+				<li class="active"><a href="#1" data-toggle="tab">create</a></li>
+			{% endif %}
+			
+			{% if disable_upload %}
+				<li><a href="#2"><span style="color: #CCCCCC; cursor: no-drop;">upload</span></a></li>
+			{% else %}
+				<li><a href="#2" data-toggle="tab">upload</a></li>
+			{% endif %}
+			
 		</ul> <!-- end ul for nav tabs -->
 		<div class="tab-content">
 			<div class="tab-pane active" id="1">
