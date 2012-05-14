@@ -31,8 +31,9 @@ urlpatterns = patterns('',
 	(r'^ajax/tag/autocomplete/$', ajax_tag_autocomplete),
 	url(r'^admin/', include(admin.site.urls)),
 	(r'^import/$', importText),
+	(r'^vote/$', note_vote_page),
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
-#	(r'^(?P<path>.+)$', fake_redirect),
+	#(r'^(?P<path>.+)$', fake_redirect),
 )
 
 if settings.DEBUG:

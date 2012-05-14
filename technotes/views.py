@@ -215,6 +215,8 @@ def _note_save(request, form):
 		for tag_name in tag_names:
 			tag, created = Tag.objects.get_or_create(name=tag_name)
 			note.tag_set.add(tag)
+		#Create corresponding Vote object
+		
 	#Save Note to DB
 	note.save()
 	return note
@@ -237,6 +239,25 @@ def importText(request):
 			'form': form,
 		}
 	return context
+	
+@login_required
+def note_vote_page(request):
+	if request.GET.has_key('id'):
+		try:
+			id = request.GET['id']
+			vote = Vote.objects.get(id=id)
+			user_voted = vote.users_voted.filter(username=request.user.username)
+			
+			if not user_voted:
+				vote.votes += 1
+				vote.users_voted.add(request.user)
+				vote.save()
+		except ObjectDoesNotExist:
+			raise Http404('Note not found.')
+	if request.META.has_key('HTTP_REFERER'):
+		return HttpResponseRedirect(request.META['HTTP_REFERER'])
+	return HttpResponseRedirect('/')
+	
 
 """ FAKE REDIRECT
 def fake_redirect(request, path):
