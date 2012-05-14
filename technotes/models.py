@@ -28,7 +28,7 @@ class Tag(models.Model):
 class Vote(models.Model):
 	note = models.ForeignKey(Note, unique=True)
 	date = models.DateTimeField(auto_now_add=True)
-	votes = models.IntegerField(default=1)
+	votes = models.IntegerField(default=0)
 	users_voted = models.ManyToManyField(User)
 	
 	def __str__(self):

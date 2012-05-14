@@ -16,7 +16,6 @@ def main_page(request):
 def user_page(request, username):
 	user = get_object_or_404(User, username=username)
 	notes = user.note_set.order_by('-id')
-	#notes = Note.objects.filter(user__username=username)
 	return render(request, 'user_page.html', {'username': username,
 		'notes': notes, 'show_tags': True, 'show_user': False, 
 		'show_edit': username == request.user.username })
@@ -216,7 +215,10 @@ def _note_save(request, form):
 			tag, created = Tag.objects.get_or_create(name=tag_name)
 			note.tag_set.add(tag)
 		#Create corresponding Vote object
-		
+		vote, created = Vote.objects.get_or_create(note=note)
+		if created:
+			vote.users_voted.add(request.user)
+			vote.save()
 	#Save Note to DB
 	note.save()
 	return note
