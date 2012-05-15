@@ -29,6 +29,9 @@
 					Posted by:
 					<a href="/user/{{ note.user.username }}/" class="username">{{ note.user.username }}</a>
 				{% endif %}
+				Votes: {% for vote in note.vote_set.all %}
+						{{ vote.votes }}
+					  {% endfor %}
 			</li>
 			<br />
 		{% endfor %}

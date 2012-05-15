@@ -2,7 +2,12 @@
 
 {% block title %}{{ username }}{% endblock %}
 
-{% block head %}{{ note.title }}{% endblock %}
+{% block head %}
+	{{ note.title }}
+	{% for vote in note.vote_set.all %}
+		<a title="vote for this note" href="/vote/?id={{ vote.id }}">[+]</a>
+	{% endfor %}
+{% endblock %}
 
 {% block content %}
 		<p>{{ note.note }}</p>
