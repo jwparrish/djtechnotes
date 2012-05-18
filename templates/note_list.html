@@ -1,41 +1,62 @@
 {% if notes %}
-	<ul class="notelist">
-		{% for note in notes %}
-			<li class="notelist">	
-				Title:
-				<a href="/user/{{ note.user.username }}/note/{{ note.id }}">{{ note.title|escape }}</a>
-				{% if show_edit %}
-					<a href="/save/?title={{ note.title|escape }}"
-						class="edit">[edit]</a>
-				{% endif %}
-				<br />
-				{% if show_tags %}
-					Tags: <span style="font-weight:bold">(</span>
-					{% if note.tag_set.all %}
-						<ul class="tags">
-							{% for tag in note.tag_set.all %}
-								<li>
-									<a href="/tag/{{ tag.name|urlencode }}/">{{ tag.name|escape }}</a>
-								</li>
-							{% endfor %}
-						</ul>
-					{% else %}
-						None.
-					{% endif %}
-					<span style="font-weight:bold">)</span>
-					<br />
-				{% endif %}
+	<table class="table table-striped table-bordered table-condensed">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th class="span3">Tags</th>
 				{% if show_user %}
-					Posted by:
-					<a href="/user/{{ note.user.username }}/" class="username">{{ note.user.username }}</a>
+					<th class="span2">Posted By</th>
 				{% endif %}
-				Votes: {% for vote in note.vote_set.all %}
-						{{ vote.votes }}
-					  {% endfor %}
-			</li>
-			<br />
-		{% endfor %}
-	</ul>
+				<th class="span1">Votes</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<!--<ul class="notelist">-->
+				{% for note in notes %}
+					<!--<li class="notelist">-->
+						<!--Title:-->
+						<tr>
+							<td>
+								<a href="/user/{{ note.user.username }}/note/{{ note.id }}">{{ note.title|escape }}</a>
+								{% if show_edit %}
+									<a href="/save/?title={{ note.title|escape }}"
+										class="edit">[edit]</a>
+								{% endif %}
+							</td>
+							<td>
+								{% if show_tags %}
+									<!--Tags: <span style="font-weight:bold">(</span>-->
+									{% if note.tag_set.all %}
+										<ul class="tags">
+											{% for tag in note.tag_set.all %}
+												<li>
+													<a href="/tag/{{ tag.name|urlencode }}/">{{ tag.name|escape }}</a>
+												</li>
+											{% endfor %}
+										</ul>
+									{% else %}
+										None.
+									{% endif %}
+								<!--<span style="font-weight:bold">)</span>-->
+								{% endif %}
+							</td>
+								{% if show_user %}
+									<td>
+										<a href="/user/{{ note.user.username }}/" class="username">{{ note.user.username }}</a>
+									</td>
+								{% endif %}
+							<td>
+									{% for vote in note.vote_set.all %}
+										{{ vote.votes }}
+									  {% endfor %}
+							</td>
+						<!--</li>-->
+						</tr>
+				{% endfor %}
+			<!--</ul>-->
+		</tbody>
+	</table>
 {% else %}
 	<p>No notes found.</p>
 {% endif %}
