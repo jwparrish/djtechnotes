@@ -120,3 +120,6 @@ ul.notelist .edit {
 	display: inline;
 }
 
+#add_comment {
+	cursor:pointer;
+}
