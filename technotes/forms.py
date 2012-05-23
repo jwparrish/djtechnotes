@@ -3,6 +3,7 @@ import re
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django import forms
+from technotes.models import Comment
 
 class RegistrationForm(forms.Form):
 	username = forms.CharField(label='Username', max_length=30)
@@ -117,3 +118,8 @@ class UploadEditForm(forms.Form):
 		label='NoteID',
 		widget=forms.HiddenInput()
 	)
+	
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		exclude = ('user', 'note')

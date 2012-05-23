@@ -133,10 +133,12 @@ def note_save_page(request):
 	
 def display_note(request, username, noteid):
 	note = Note.objects.get(id=noteid)
+	comments = Comment.objects.filter(note__id=noteid).order_by('-date')
+	comment_form = CommentForm()
 	if note.file:
 		return render(request, 'show_pdf.html', {'username': username, 'note': note })
 	else:
-		return render(request, 'note.html', {'username': username, 'note': note })
+		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
 	
 def tag_page(request, tag_name):
 	tag = get_object_or_404(Tag, name=tag_name)
