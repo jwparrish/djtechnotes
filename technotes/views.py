@@ -5,7 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.template import Context, RequestContext
-from django.template.loader import get_template
+from django.template.loader import get_template, render_to_string
+from django.utils import simplejson
 
 from technotes.forms import *
 from technotes.models import *
@@ -262,6 +263,25 @@ def note_vote_page(request):
 		return HttpResponseRedirect(request.META['HTTP_REFERER'])
 	return HttpResponseRedirect('/')
 	
+@login_required
+def add_comment(request):
+	form = CommentForm(request.POST)
+	if form.is_valid():
+		comment = form.save(commit=False)
+		noteid = request.POST.get('noteid')
+		note = Note.objects.get(id=noteid)
+		comment.user = request.user
+		comment.note = note
+		comment.save()
+		
+		template = "note_comment.html"
+		html = render_to_string(template, {'comment': comment })
+		response = simplejson.dumps({'success':'True', 'html': html})
+	else:
+		html = form.errors.as_ul()
+		response = simplejson.dumps({'success': 'False', 'html': html})
+	return HttpResponse(response, content_type='application/javascript; charset=utf-8')
+
 
 """ FAKE REDIRECT
 def fake_redirect(request, path):

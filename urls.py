@@ -32,6 +32,7 @@ urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
 	(r'^import/$', importText),
 	(r'^vote/$', note_vote_page),
+	(r'^comment/note/add/$', add_comment),
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 	#(r'^(?P<path>.+)$', fake_redirect),
 )

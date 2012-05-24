@@ -123,3 +123,11 @@ ul.notelist .edit {
 #add_comment {
 	cursor:pointer;
 }
+
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+}
