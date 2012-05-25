@@ -29,7 +29,7 @@ function prepareDocument(){
 	$("#submit_comment").click(addComment);
 	$("#comment_form").addClass('hidden');
 	$("#add_comment").click(slideToggleCommentForm);
-	$("#add_comment").addClass('visible')
+	$("#add_comment").addClass('visible');
 	$("#cancel_comment").click(slideToggleCommentForm);
 }
 
@@ -38,6 +38,24 @@ function slideToggleCommentForm() {
 	$("#comment_form").slideToggle();
 	$("#add_comment").slideToggle();
 }
+
+function clearFormElements() {
+	$.find(':input').each(function() {
+		switch(this.type) {
+			case 'password':
+			case 'select-multiple':
+			case 'select-one':
+			case 'text':
+			case 'textarea':
+				$(this).val('');
+				break;
+			case 'checkbox':
+			case 'radio':
+				this.checked = false;
+		}
+	});
+}
+
 
 function addComment() {
 	// create comment object
@@ -59,6 +77,7 @@ function addComment() {
 				$("#no_comments").empty();
 				// add new comment to comments section
 				$("#comments").prepend(response.html).slideDown();
+				$("#comment_form").clearFormElements();
 			}
 			else {
 				// add error text to the errors div
@@ -66,5 +85,7 @@ function addComment() {
 			}
 		}, "json");
 }
+
+
 
 jQuery(document).ready(prepareDocument);
