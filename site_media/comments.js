@@ -39,8 +39,9 @@ function slideToggleCommentForm() {
 	$("#add_comment").slideToggle();
 }
 
-function clearFormElements() {
-	$.find(':input').each(function() {
+/*
+function clearFormElements(ele) {
+	$(ele).find(':input').each(function() {
 		switch(this.type) {
 			case 'password':
 			case 'select-multiple':
@@ -54,6 +55,12 @@ function clearFormElements() {
 				this.checked = false;
 		}
 	});
+}
+*/
+
+function resetForm($form) {
+	$form.find('input:text, input:password, input:file, select, textarea').val('');
+	$form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 }
 
 
@@ -72,12 +79,16 @@ function addComment() {
 			// evaluate the "success" parameter
 			if (response.success == "True") {
 				// disable the submit button to prevent duplicates
-				$("#submit_comment").attr('disabled', 'disabled');
+				//$("#submit_comment").attr('disabled', 'disabled');
 				// if this is the first comment, remove the 'no comments' place holder
 				$("#no_comments").empty();
 				// add new comment to comments section
 				$("#comments").prepend(response.html).slideDown();
-				$("#comment_form").clearFormElements();
+				//$("#comment_form").clearFormElements(this.form); ##### Original Clear Form, kept coming up with (xxxxx is not a function)
+				resetForm($('#comment_form'));
+				// hide form to deter double clicks
+				$(slideToggleCommentForm);
+				
 			}
 			else {
 				// add error text to the errors div
