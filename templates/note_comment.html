@@ -1,7 +1,10 @@
 <div class="comment">
-	<strong>{{ comment.title }}</strong>
-	by {{ comment.user.username }}
+	<!--<strong>{{ comment.title }}</strong>-->
+	<strong><a href="/user/{{ user.username }}/">{{ user.username }}</a></strong>
+	<!--by {{ comment.user.username }}-->
 	<br />
+	{{ comment.date }}
+	<br /><br />
 	{{ comment.content }}
 	<br /><br />
 	<hr />

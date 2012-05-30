@@ -134,7 +134,7 @@ def note_save_page(request):
 	
 def display_note(request, username, noteid):
 	note = Note.objects.get(id=noteid)
-	comments = Comment.objects.filter(note__id=noteid).order_by('-date')
+	comments = Comment.objects.filter(note__id=noteid).order_by('date')
 	comment_form = CommentForm()
 	if note.file:
 		return render(request, 'show_pdf.html', {'username': username, 'note': note })

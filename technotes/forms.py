@@ -123,3 +123,6 @@ class CommentForm(forms.ModelForm):
 	class Meta:
 		model = Comment
 		exclude = ('user', 'note')
+		widgets = {
+			'content': forms.Textarea(attrs={'cols': 1, 'rows': 4})
+		}

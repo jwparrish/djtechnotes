@@ -37,6 +37,6 @@ class Vote(models.Model):
 class Comment(models.Model):
 	note = models.ForeignKey(Note)
 	user = models.ForeignKey(User)
-	title = models.CharField(max_length=50)
+	#title = models.CharField(max_length=50)
 	date = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()

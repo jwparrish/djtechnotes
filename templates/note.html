@@ -12,7 +12,8 @@
 {% block content %}
 		<p>{{ note.note }}</p>
 		<br /><br />
-		<h4>Comments:</h4>
+		<h3>Comments:</h3>
+		<br />
 			<div id="comments">
 			{% for comment in comments %}
 				{% include 'note_comment.html' %}
@@ -27,8 +28,8 @@
 			<a id="add_comment">Write a Comment</a>
 			<div id="comment_form">
 				<div id="comments_errors"></div>
+				{{ comment_form }}
 				<table>
-					{{ comment_form.as_table }}
 					<tr><td colspan="2">
 						<input type="hidden" id="id_note" value="{{ note.id }}" />
 						<input type="submit" id="submit_comment" value="Submit" />
