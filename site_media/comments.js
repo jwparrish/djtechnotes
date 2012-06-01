@@ -83,7 +83,7 @@ function addComment() {
 				// if this is the first comment, remove the 'no comments' place holder
 				$("#no_comments").empty();
 				// add new comment to comments section
-				$("#comments").prepend(response.html).slideDown();
+				$("#comments").append(response.html).slideDown();
 				//$("#comment_form").clearFormElements(this.form); ##### Original Clear Form, kept coming up with (xxxxx is not a function)
 				resetForm($('#comment_form'));
 				// hide form to deter double clicks

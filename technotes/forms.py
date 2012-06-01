@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django import forms
 from technotes.models import Comment
 
+
 class RegistrationForm(forms.Form):
 	username = forms.CharField(label='Username', max_length=30)
 	email = forms.EmailField(label='Email')
@@ -124,5 +125,6 @@ class CommentForm(forms.ModelForm):
 		model = Comment
 		exclude = ('user', 'note')
 		widgets = {
-			'content': forms.Textarea(attrs={'cols': 1, 'rows': 4})
+			'content': forms.Textarea(attrs={'rows': 4, 'class': 'field span8'})
 		}
+		

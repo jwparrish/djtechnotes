@@ -176,12 +176,14 @@ def search_page(request):
 	show_results = False
 	if request.GET.has_key('query'):
 		show_results = True
+		searchterms = request.GET['query']
 		query = request.GET['query'].strip()
 		if query:
 			#form = SearchForm({'query': query})
 			notes = Note.objects.filter(title__icontains=query)[:10]
 	
 	variables = {
+		'searchterms': searchterms,
 		'query': query,
 		'form': form, 
 		'notes': notes,

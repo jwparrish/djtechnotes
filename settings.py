@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'technotes',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'crispy_forms',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
