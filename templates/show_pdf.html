@@ -2,18 +2,62 @@
 
 {% block title %}{{ username }}{% endblock %}
 
-{% block head %}{{ note.title }}{% endblock %}
+{% block head %}
+	{{ note.title }}
+	{% for vote in note.vote_set.all %}
+		<a title="vote for this note" href="/vote/?id={{ vote.id }}">[+]</a>
+	{% endfor %}
+{% endblock %}
 
 {% block content %}
-	{% block external %}
-		<script type="text/javascript" src="/site_media/pdfobject.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				var myPDF = new PDFObject({ url: "{{ note.file.url }}" }).embed();
-			});
-		</script>
-		
-	{% endblock %}
 
-<p>It appears you don't have Adobe Reader or PDF support in this web browser.  <a href="{{ note.file.url }}">Click here to download the PDF</a></p>
+<div id="pdf" class="span12">
+	<p>It appears you don't have <a href="http://www.adobe.com">Adobe Reader </a>or PDF support in this web browser.  <a href="{{ note.file.url }}">Click here to download the PDF</a></p>
+</div>
+		<h3>Comments:</h3>
+			{% if comments %}
+				<br />
+			{% endif %}
+				<div id="comments">
+				{% for comment in comments %}
+					{% include 'note_comment.html' %}
+				{% empty %}
+					<div id="no_comments">
+						No comments yet.
+						<br /><br />
+					</div>
+				{% endfor %}
+			</div>
+		
+		{% if user.is_authenticated %}
+			<a id="add_comment">Write a Comment</a>
+				<div id="comments_errors"></div>
+			<div id="comment_form">
+				<table>
+					{% for field in comment_form %}
+						{% if field.name != 'content' %}
+							{{ field.label }}
+						{% endif %}
+						{{ field }}
+					{% endfor %}
+					<tr><td colspan="2">
+						<input type="hidden" id="id_note" value="{{ note.id }}" />
+						<input type="submit" id="submit_comment" value="Submit" />
+						<input type="submit" id="cancel_comment" value="Cancel" />
+					</td></tr>
+				</table>
+			</div>
+		{% else %}
+			<a href="{% url login %}?next={{ request.path }}">Log in to add a comment.</a>
+		{% endif %}
+		<br /><br />
+{% endblock %}
+{% block external %}
+	<script type="text/javascript" src="/site_media/pdfobject.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var myPDF = new PDFObject({ url: "{{ note.file.url }}" }).embed("pdf");
+		});
+	</script>		
+	<script type="text/javascript" src="/site_media/comments.js"></script>
 {% endblock %}

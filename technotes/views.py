@@ -137,7 +137,7 @@ def display_note(request, username, noteid):
 	comments = Comment.objects.filter(note__id=noteid).order_by('date')
 	comment_form = CommentForm()
 	if note.file:
-		return render(request, 'show_pdf.html', {'username': username, 'note': note })
+		return render(request, 'show_pdf.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
 	else:
 		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
 	

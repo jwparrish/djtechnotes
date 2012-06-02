@@ -131,3 +131,9 @@ ul.notelist .edit {
 .visible {
 	display: block;
 }
+
+#pdf {
+	height: 600px;
+	margin: 2em auto;
+	border: 10px solid #6699FF;
+}
