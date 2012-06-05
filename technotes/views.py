@@ -81,6 +81,11 @@ def note_save_page(request):
 				for tag_name in tag_names:
 					tag, created = Tag.objects.get_or_create(name=tag_name)
 					note.tag_set.add(tag)
+				#Create corresponding Vote object
+				vote, created = Vote.objects.get_or_create(note=note)
+				if created:
+					vote.users_voted.add(request.user)
+					vote.save()
 				note.save()
 				return HttpResponseRedirect('/user/%s/' % request.user.username)
 			else:

@@ -10,9 +10,9 @@ class NoteAdmin(admin.ModelAdmin):
 admin.site.register(Note, NoteAdmin)
 
 class CommentAdmin(admin.ModelAdmin):
-	list_display = ('note', 'user', 'date')
+	list_display = ('content', 'note', 'user', 'date')
 	list_per_page = 20
-	list_filter = ('note', 'user')
+	list_filter = ('note', 'user', 'date')
 	ordering = ['date']
 	search_fields = ['user', 'content']
 	
