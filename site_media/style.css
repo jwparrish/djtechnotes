@@ -137,3 +137,8 @@ ul.notelist .edit {
 	margin: 2em auto;
 	border: 10px solid #6699FF;
 }
+
+#required {
+	float: left;
+	margin: 5px 0 0 20px;
+}

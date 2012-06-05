@@ -39,11 +39,6 @@
 											<br />
 											{{ importForm.importFile}}
 											<input type="submit" value="import" name="import" class="btn" />
-											<!--
-											{% if required %}
-												<span style="font-weight:bold; color: #F00;">{{ required }}</span>
-											{% endif %}
-											-->
 										</div>
 									</form>
 								</ul>
@@ -64,6 +59,11 @@
 								<input type="submit" value="delete" name="delete" class="btn btn-danger" />
 						</form>
 					{% endif %}
+					<div id="required">
+						{% if required %}
+							<span style="font-weight:bold; color: #F00;">{{ required }}</span>
+						{% endif %}
+					</div>
 				</div>  <!-- end #save_buttons -->
 				<br /><br />
 			</div> <!-- end tab 1 -->

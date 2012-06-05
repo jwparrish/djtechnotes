@@ -47,16 +47,16 @@ class RegistrationForm(forms.Form):
 class NoteSaveForm(forms.Form):
 	title = forms.CharField(
 		label = 'Title',
-		widget = forms.TextInput(attrs={'size': 64})
+		widget = forms.TextInput(attrs={'size': 64, 'class': 'field span8'})
 	)
 	note = forms.CharField(
 		label = 'Note',
-		widget = forms.widgets.Textarea(attrs={'class': 'noteinput'})
+		widget = forms.widgets.Textarea(attrs={'class': 'noteinput field span8'})
 	)
 	tags = forms.CharField(
 		label = 'Tags',
 		required = False,
-		widget = forms.TextInput(attrs={'size':64})
+		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'})
 	)
 	
 class SearchForm(forms.Form):
@@ -68,17 +68,17 @@ class SearchForm(forms.Form):
 class NoteEditForm(forms.Form):
 	title = forms.CharField(
 		label = 'Title',
-		widget = forms.TextInput(attrs={'size': 64})
+		widget = forms.TextInput(attrs={'size': 64, 'class': 'field span8'})
 	)
 	note = forms.CharField(
 		label = 'Note',
 		required = False,
-		widget = forms.widgets.Textarea(attrs={'class': 'noteinput'})
+		widget = forms.widgets.Textarea(attrs={'class': 'noteinput field span8'})
 	)
 	tags = forms.CharField(
 		label = 'Tags',
 		required = False,
-		widget = forms.TextInput(attrs={'size':64})
+		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'})
 	)
 	noteid = forms.CharField(
 		label='NoteID',
@@ -91,19 +91,19 @@ class ImportFileForm(forms.Form):
 class UploadPDFForm(forms.Form):
 	title = forms.CharField(
 		label = 'Title',
-		widget = forms.TextInput(attrs={'size': 64})
+		widget = forms.TextInput(attrs={'size': 64, 'class': 'field span8'})
 	)
 	tags = forms.CharField(
 		label = 'Tags',
 		required = False,
-		widget = forms.TextInput(attrs={'size':64})
+		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'})
 	)
 	upPDF = forms.FileField(label = 'Upload')
 	
 class UploadEditForm(forms.Form):
 	title = forms.CharField(
 		label = 'Title',
-		widget = forms.TextInput(attrs={'size': 64})
+		widget = forms.TextInput(attrs={'size': 64, 'class': 'field span8'})
 	)
 	file = forms.CharField(
 		label = 'File',
@@ -113,7 +113,7 @@ class UploadEditForm(forms.Form):
 	tags = forms.CharField(
 		label = 'Tags',
 		required = False,
-		widget = forms.TextInput(attrs={'size':64})
+		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'})
 	)
 	noteid = forms.CharField(
 		label='NoteID',

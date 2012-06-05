@@ -7,6 +7,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.template import Context, RequestContext
 from django.template.loader import get_template, render_to_string
 from django.utils import simplejson
+from django.core.files.uploadedfile import TemporaryUploadedFile
 
 from technotes.forms import *
 from technotes.models import *
@@ -65,8 +66,9 @@ def note_save_page(request):
 			except:
 				form = NoteSaveForm()
 				importForm = ImportFileForm()
+				uploadPDF = UploadPDFForm()
 				required = 'File required for import.'
-				return render(request, 'note_save.html', {'form': form, 'importForm': importForm, 'required': required })
+				return render(request, 'note_save.html', {'form': form, 'importForm': importForm, 'required': required, 'uploadPDF': uploadPDF })
 		elif 'uploadPDF' in request.POST:
 			form = UploadPDFForm(request.POST, request.FILES)
 			if form.is_valid():
@@ -247,8 +249,12 @@ def importText(request):
 	else:
 		importedContent = importedFile.read()
 		form = NoteSaveForm(initial={'note': importedContent})
+		uploadPDF = UploadPDFForm()
+		importForm = ImportFileForm()
 		context = {
 			'form': form,
+			'uploadPDF': uploadPDF,
+			'importForm': importForm,
 		}
 	return context
 	
