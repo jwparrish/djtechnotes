@@ -205,22 +205,39 @@ def search_page(request):
 			for keyword in keywords:
 				q = q | Q(title__icontains=keyword)
 			form = SearchForm({'query': query})
-			notes = Note.objects.filter(q)[:10]
+			query_set = Note.objects.filter(q)[:200]
+			paginator = Paginator(query_set, ITEMS_PER_PAGE)
+			try:
+				page = int(request.GET['page'])
+			except:
+				page = 1
+			try:
+				notes = paginator.page(page)
+			except:
+				raise Http404
+			
+			
+			variables = {
+				'searchterms': searchterms,
+				'query': query,
+				'form': form, 
+				'notes': notes.object_list,
+				'show_results': show_results,
+				'show_tags': True,
+				'show_user': True,
+				'show_paginator': paginator.num_pages > 1,
+				'has_prev': paginator.page(page).has_previous(),
+				'has_next': paginator.page(page).has_next(),
+				'page': page,
+				'pages': paginator.num_pages,
+				'next_page': page + 1,
+				'prev_page': page - 1
+			}
 	
-	variables = {
-		'searchterms': searchterms,
-		'query': query,
-		'form': form, 
-		'notes': notes,
-		'show_results': show_results,
-		'show_tags': True,
-		'show_user': True
-	}
-	
-	if request.GET.has_key('ajax'):
-		return render(request, 'note_list.html', variables)
-	else:
-		return render(request, 'search.html', variables)
+			if request.GET.has_key('ajax'):
+				return render(request, 'note_list.html', variables)
+			else:
+				return render(request, 'search.html', variables)
 		
 		
 def _note_save(request, form):

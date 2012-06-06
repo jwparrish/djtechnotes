@@ -58,11 +58,11 @@
 	{% if show_paginator %}
 		<div class="paginator">
 			{% if has_prev %}
-				<a href="?page={{ prev_page }}">&laquo; Previous</a>
+				<a href="?page={{ prev_page }}&query={{ searchterms }}">&laquo; Previous</a>
 			{% endif %}
 			(Page {{ page }} of {{ pages }})
 			{% if has_next %}
-				<a href="?page={{ next_page }}">Next &raquo;</a>
+				<a href="?page={{ next_page }}&query={{ searchterms }}">Next &raquo;</a>
 			{% endif %}
 		</div>
 	{% endif %}
