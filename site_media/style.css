@@ -116,7 +116,8 @@ ul.notelist .edit {
 }
 
 #delete_form {
-	margin: 0 5px 0 55px;
+	/*margin: 0 5px 0 55px;*/
+	float: right;
 	display: inline;
 }
 
@@ -141,4 +142,8 @@ ul.notelist .edit {
 #required {
 	float: left;
 	margin: 5px 0 0 20px;
+}
+
+.paginator {
+	float: right;
 }

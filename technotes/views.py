@@ -8,26 +8,40 @@ from django.template import Context, RequestContext
 from django.template.loader import get_template, render_to_string
 from django.utils import simplejson
 from django.core.files.uploadedfile import TemporaryUploadedFile
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 from technotes.forms import *
 from technotes.models import *
+
+ITEMS_PER_PAGE = 10
 
 def main_page(request):
 	return render(request, 'main_page.html')
 
 def user_page(request, username):
 	user = get_object_or_404(User, username=username)
-	notes = user.note_set.order_by('-id')
+	query_set = user.note_set.order_by('-id')
+	paginator = Paginator(query_set, ITEMS_PER_PAGE)
+	try:
+		page = int(request.GET['page'])
+	except:
+		page = 1
+	try:
+		notes = paginator.page(page)
+	except:
+		raise Http404
 	return render(request, 'user_page.html', {'username': username,
-		'notes': notes, 'show_tags': True, 'show_user': False, 
-		'show_edit': username == request.user.username })
-
-#legacy
-def note_page(request, username):
-	user = User.objects.get(username=username)
-	notes = Note.objects.filter(user__username=user)
-	return render(request, 'note.html', {
-		'username': username, 'notes': notes })
+		'notes': notes.object_list, 'show_tags': True, 'show_user': False, 
+		'show_edit': username == request.user.username, 
+		'show_paginator': paginator.num_pages > 1, 
+		'has_prev': paginator.page(page).has_previous(), 
+		'has_next': paginator.page(page).has_next(),
+		'page': page,
+		'pages': paginator.num_pages,
+		'next_page': page + 1,
+		'prev_page': page - 1
+		})
 	
 def logout_page(request):
 	logout(request)
@@ -186,8 +200,12 @@ def search_page(request):
 		searchterms = request.GET['query']
 		query = request.GET['query'].strip()
 		if query:
-			#form = SearchForm({'query': query})
-			notes = Note.objects.filter(title__icontains=query)[:10]
+			keywords = query.split()
+			q = Q()
+			for keyword in keywords:
+				q = q | Q(title__icontains=keyword)
+			form = SearchForm({'query': query})
+			notes = Note.objects.filter(q)[:10]
 	
 	variables = {
 		'searchterms': searchterms,
