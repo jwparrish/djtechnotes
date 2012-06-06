@@ -11,4 +11,4 @@ techNotes is a knowledgebase for Tech Support/Helpdesks
 * search pdf Word docs for keywords
 * Routine to pull all notes from a directly and create notes only needing review before submissions
 * fix search form to also search tags and possibly content
-
+* add user account management functions
