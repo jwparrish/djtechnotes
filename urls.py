@@ -3,6 +3,7 @@ import os.path
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from django.contrib.auth.views import logout
+from django.contrib.auth.views import login as auth_login
 from django.views.generic.simple import direct_to_template
 from django.conf import settings
 
@@ -17,7 +18,8 @@ urlpatterns = patterns('',
 	(r'^$', main_page),
 	(r'^user/(\w+)/$', user_page),
 	(r'^user/(\w+)/note/(\d+)$', display_note),
-	(r'^login/$', 'django.contrib.auth.views.login', '','login'),
+	#(r'^login/$', 'django.contrib.auth.views.login', '','login'),
+	(r'^login/$', auth_login),
 	(r'^logout/$', logout_page),
 	(r'^register/$', register_page),
 	(r'^register/success/$', direct_to_template, {'template': 'registration/register_success.html' }),
