@@ -21,8 +21,8 @@ class ViewTest(TestCase):
 		
 	def test_note_save(self):
 		response = self.client.login(
-			username='sysop',
-			password ='password'
+			username='',
+			password =''
 		)
 		self.assertTrue(response)
 		data = {

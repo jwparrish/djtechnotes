@@ -18,7 +18,9 @@ ITEMS_PER_PAGE = 10
 
 def main_page(request):
 	return render(request, 'main_page.html')
+	
 
+@login_required
 def user_page(request, username):
 	user = get_object_or_404(User, username=username)
 	query_set = user.note_set.order_by('-id')
@@ -42,7 +44,8 @@ def user_page(request, username):
 		'next_page': page + 1,
 		'prev_page': page - 1
 		})
-	
+		
+		
 def logout_page(request):
 	logout(request)
 	return HttpResponseRedirect('/logout/success/')
@@ -153,6 +156,7 @@ def note_save_page(request):
 		uploadPDF = UploadPDFForm()
 	return render(request, 'note_save.html', {'form': form, 'importForm': importForm, 'uploadPDF': uploadPDF })
 	
+@login_required
 def display_note(request, username, noteid):
 	note = Note.objects.get(id=noteid)
 	comments = Comment.objects.filter(note__id=noteid).order_by('date')
@@ -161,13 +165,15 @@ def display_note(request, username, noteid):
 		return render(request, 'show_pdf.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
 	else:
 		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
-	
+
+@login_required
 def tag_page(request, tag_name):
 	tag = get_object_or_404(Tag, name=tag_name)
 	notes = tag.notes.order_by('-id')
 	return render(request, 'tag_page.html', {'notes': notes, 
 		'tag_name': tag_name, 'show_tags': True, 'show_user': True })
 	
+@login_required
 def tag_cloud_page(request):
 	MAX_WEIGHT = 5
 	tags = Tag.objects.order_by('name')
@@ -239,7 +245,7 @@ def search_page(request):
 			else:
 				return render(request, 'search.html', variables)
 		
-		
+@login_required
 def _note_save(request, form):
 	try:
 		note = Note.objects.get(id=form.cleaned_data['noteid'])
@@ -270,12 +276,14 @@ def _note_save(request, form):
 	note.save()
 	return note
 	
+@login_required
 def ajax_tag_autocomplete(request):
 	if request.GET.has_key('q'):
 		tags = Tag.objects.filter(name__istartswith=request.GET['q'])[:10]
 		return HttpResponse('\n'.join(tag.name for tag in tags))
 	return HttpResponse()
 	
+@login_required
 def importText(request):
 	importedFile = request.FILES['importFile']
 		

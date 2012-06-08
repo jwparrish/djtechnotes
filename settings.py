@@ -1,4 +1,3 @@
-# Django settings for djtechnotes project.
 import os
 import os.path
 import django
@@ -8,7 +7,7 @@ CURRENT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replac
 DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -92,7 +91,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '-sm!s)ne$paoaf98=fvn=qb_1!=lvp0!e1=3xd_!g6!48_4f1n'
+SECRET_KEY = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -107,7 +106,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.cache.CacheMiddleware',
+   # 'django.middleware.cache.CacheMiddleware',
 )
 
 ROOT_URLCONF = 'djtechnotes.urls'
