@@ -49,7 +49,8 @@ def user_page(request, username):
 def logout_page(request):
 	logout(request)
 	return HttpResponseRedirect('/logout/success/')
-	
+
+@login_required	
 def register_page(request):
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
