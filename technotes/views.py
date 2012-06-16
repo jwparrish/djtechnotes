@@ -10,9 +10,13 @@ from django.utils import simplejson
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.conf import settings
 
 from technotes.forms import *
 from technotes.models import *
+
+import requests
+
 
 ITEMS_PER_PAGE = 10
 
@@ -162,8 +166,16 @@ def display_note(request, username, noteid):
 	note = Note.objects.get(id=noteid)
 	comments = Comment.objects.filter(note__id=noteid).order_by('date')
 	comment_form = CommentForm()
+	#if note.file:
+	#	return render(request, 'show_pdf.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
 	if note.file:
-		return render(request, 'show_pdf.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
+		response = render_to_zoho(note)
+		if response == 'error':
+			return render(request, 'note_external.html', {'username': username, 'note': note })
+		else:
+			templink = response
+			return render(request, 'note_external.html', {'username': username, 'note': note, 'templink': templink, 'comments': comments, 'comment_form': comment_form})
+
 	else:
 		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
 
@@ -339,6 +351,19 @@ def add_comment(request):
 		response = simplejson.dumps({'success': 'False', 'html': html})
 	return HttpResponse(response, content_type='application/javascript; charset=utf-8')
 
+def render_to_zoho(note):
+	apikey = settings.ZOHOAPIKEY
+	keys = {'apikey': apikey }
+	url = 'https://viewer.zoho.com/api/view.do'
+	path = str(note.file.file)
+	files = {'file': ('note.pdf', open(path, 'rb'))}
+	r = requests.post(url, files=files, data=keys)
+	if r.status_code == 200:
+		response = str(r.json['response']['url'])
+	else:
+		response = 'error'
+	return response	
+	
 
 """ FAKE REDIRECT
 def fake_redirect(request, path):
