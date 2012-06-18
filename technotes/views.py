@@ -353,10 +353,10 @@ def add_comment(request):
 
 def render_to_zoho(note):
 	apikey = settings.ZOHOAPIKEY
-	keys = {'apikey': apikey }
+	keys = {'apikey': apikey, 'displayfilename': 'false'}
 	url = 'https://viewer.zoho.com/api/view.do'
 	path = str(note.file.file)
-	files = {'file': ('note.pdf', open(path, 'rb'))}
+	files = {'file': (note.filename(), open(path, 'rb'))}
 	r = requests.post(url, files=files, data=keys)
 	if r.status_code == 200:
 		response = str(r.json['response']['url'])

@@ -2,11 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 import os.path
 
+def user_folder(self, filename):
+	return '%s/%s' % (self.user.username, filename)
+
 class Note(models.Model):
 	note = models.TextField(blank=True)
 	title = models.CharField(max_length=200)
-	file = models.FileField(upload_to='pdf', blank=True)
 	user = models.ForeignKey(User)
+	file = models.FileField(upload_to=user_folder, blank=True)
 	uploaded = models.BooleanField()
 	
 	def __unicode__(self):
@@ -17,6 +20,7 @@ class Note(models.Model):
 		
 	def filename(self):
 		return os.path.basename(self.file.name)
+		
 	
 class Tag(models.Model):
 	name = models.CharField(max_length=64, unique=True)
