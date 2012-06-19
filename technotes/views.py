@@ -124,12 +124,12 @@ def note_save_page(request):
 		return HttpResponseRedirect(
 			'/user/%s/' % request.user.username
 		)
-	elif request.GET.has_key('title'):
-		title = request.GET['title']
+	elif request.GET.has_key('id'):
+		id = request.GET['id']
 		tags = ''
 		note = ''
 		try:
-			originalNote = Note.objects.get(title=title)
+			originalNote = Note.objects.get(id=id)
 			note = originalNote.note
 			noteid = originalNote.id
 			tags = ' '.join(
@@ -137,6 +137,7 @@ def note_save_page(request):
 			)
 			file = originalNote.filename()
 			uploaded = originalNote.uploaded
+			title = originalNote.title
 			
 		except ObjectDoesNotExist:
 			pass
@@ -260,31 +261,27 @@ def search_page(request):
 		
 @login_required
 def _note_save(request, form):
-	try:
-		note = Note.objects.get(id=form.cleaned_data['noteid'])
-		note.user = request.user
+	#Create or get note
+	note, created = Note.objects.get_or_create(
+		user = request.user,
+		id = form.cleaned_data['noteid'],
+	)
+	#If the note is being updated, clear old tag list.
+	if not created:
+		note.tag_set.clear()
 		note.note = form.cleaned_data['note']
 		note.title = form.cleaned_data['title']
-	except:
-		#Create or get note
-		note, created = Note.objects.get_or_create(
-			user = request.user,
-			note = form.cleaned_data['note'],
-			title = form.cleaned_data['title'],
-		)
-		#If the note is being updated, clear old tag list.
-		if not created:
-			note.tag_set.clear()
-		#Create new tag list.
-		tag_names = form.cleaned_data['tags'].split()
-		for tag_name in tag_names:
-			tag, created = Tag.objects.get_or_create(name=tag_name)
-			note.tag_set.add(tag)
-		#Create corresponding Vote object
-		vote, created = Vote.objects.get_or_create(note=note)
-		if created:
-			vote.users_voted.add(request.user)
-			vote.save()
+		
+	#Create new tag list.
+	tag_names = form.cleaned_data['tags'].split()
+	for tag_name in tag_names:
+		tag, created = Tag.objects.get_or_create(name=tag_name)
+		note.tag_set.add(tag)
+	#Create corresponding Vote object
+	vote, created = Vote.objects.get_or_create(note=note)
+	if created:
+		vote.users_voted.add(request.user)
+		vote.save()
 	#Save Note to DB
 	note.save()
 	return note
