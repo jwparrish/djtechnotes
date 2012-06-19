@@ -213,13 +213,13 @@ def tag_cloud_page(request):
 @login_required
 def search_page(request):
 	form = SearchForm()
-	notes = []
 	show_results = False
 	if request.GET.has_key('query'):
 		show_results = True
 		searchterms = request.GET['query']
 		query = request.GET['query'].strip()
 		if query:
+			notes = []
 			keywords = query.split()
 			q = Q()
 			for keyword in keywords:
@@ -253,12 +253,18 @@ def search_page(request):
 				'next_page': page + 1,
 				'prev_page': page - 1
 			}
+		else:
+			variables = {
+				'form': form,
+				'searchterms': searchterms,
+				'show_results': show_results,
+			}
 	
-			if request.GET.has_key('ajax'):
-				return render(request, 'note_list.html', variables)
-			else:
-				return render(request, 'search.html', variables)
-		
+		if request.GET.has_key('ajax'):
+			return render(request, 'note_list.html', variables)
+		else:
+			return render(request, 'search.html', variables)
+
 @login_required
 def _note_save(request, form):
 	#Create or get note
