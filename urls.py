@@ -35,6 +35,7 @@ urlpatterns = patterns('',
 	(r'^import/$', importText),
 	(r'^vote/$', note_vote_page),
 	(r'^comment/note/add/$', add_comment),
+	(r'^ckeditor/', include('ckeditor.urls')),
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 	#(r'^(?P<path>.+)$', fake_redirect),
 )

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django import forms
 from technotes.models import Comment
+from ckeditor.widgets import CKEditorWidget
 
 
 class RegistrationForm(forms.Form):
@@ -51,7 +52,8 @@ class NoteSaveForm(forms.Form):
 	)
 	note = forms.CharField(
 		label = 'Note',
-		widget = forms.widgets.Textarea(attrs={'class': 'noteinput field span8'})
+		widget = CKEditorWidget(),
+		#widget = forms.widgets.Textarea(attrs={'class': 'noteinput field span8'})
 	)
 	tags = forms.CharField(
 		label = 'Tags',

@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'technotes',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'ckeditor',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -157,6 +158,10 @@ LOGGING = {
 
 #Default: '/accounts/login/'
 LOGIN_URL = '/login/'
+
+CKEDITOR_UPLOAD_PATH = os.path.join(CURRENT_PATH, 'ckuploads')
+CKEDITOR_RESTRICT_BY_USER = True
+
 
 
 ####### Local Settings Override ########
