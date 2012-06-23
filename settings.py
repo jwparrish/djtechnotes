@@ -162,6 +162,13 @@ LOGIN_URL = '/login/'
 CKEDITOR_UPLOAD_PATH = os.path.join(CURRENT_PATH, 'ckuploads')
 CKEDITOR_RESTRICT_BY_USER = True
 
+CKEDITOR_CONFIGS = {
+	'default': {
+		'toolbar': [
+			[		'Undo', 'Redo',
+				'-', 'Bold', 'Italic', 'Underline',
+				'-', 'link', '
+
 
 
 ####### Local Settings Override ########
