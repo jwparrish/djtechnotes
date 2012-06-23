@@ -267,27 +267,43 @@ def search_page(request):
 
 @login_required
 def _note_save(request, form):
-	#Create or get note
-	note, created = Note.objects.get_or_create(
-		user = request.user,
-		id = form.cleaned_data['noteid'],
-	)
-	#If the note is being updated, clear old tag list.
-	if not created:
-		note.tag_set.clear()
-		note.note = form.cleaned_data['note']
-		note.title = form.cleaned_data['title']
-		
-	#Create new tag list.
-	tag_names = form.cleaned_data['tags'].split()
-	for tag_name in tag_names:
-		tag, created = Tag.objects.get_or_create(name=tag_name)
-		note.tag_set.add(tag)
-	#Create corresponding Vote object
-	vote, created = Vote.objects.get_or_create(note=note)
-	if created:
-		vote.users_voted.add(request.user)
-		vote.save()
+	try:
+		#Create or get note
+		note, created = Note.objects.get_or_create(
+			user = request.user,
+			id = form.cleaned_data['noteid'],
+		)
+		#If the note is being updated, clear old tag list.
+		if not created:
+			note.tag_set.clear()
+			note.note = form.cleaned_data['note']
+			note.title = form.cleaned_data['title']
+			
+		#Create new tag list.
+		tag_names = form.cleaned_data['tags'].split()
+		for tag_name in tag_names:
+			tag, created = Tag.objects.get_or_create(name=tag_name)
+			note.tag_set.add(tag)
+		#Create corresponding Vote object
+		vote, created = Vote.objects.get_or_create(note=note)
+		if created:
+			vote.users_voted.add(request.user)
+			vote.save()
+	except:
+		note = Note(
+			user = request.user,
+			note = form.cleaned_data['note'],
+			title = form.cleaned_data['title'],
+		)
+		#tag_names = form.cleaned_data['tags'].split()
+		#for tag_name in tag_names:
+		#	tag, created = Tag.objects.get_or_create(name=tag_name)
+			#note.tag_set.add(tag)
+		#Create corresponding Vote object
+		#vote, created = Vote.objects.get_or_create(note=note)
+		#if created:
+			#vote.users_voted.add(request.user)
+			#vote.save()
 	#Save Note to DB
 	note.save()
 	return note

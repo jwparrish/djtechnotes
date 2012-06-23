@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-		<p><pre>{{ note.note }}</pre></p>
+		<p>{{ note.note|safe }}</p>
 		<br /><br />
 		<h3>Comments:</h3>
 			{% if comments %}

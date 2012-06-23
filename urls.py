@@ -11,6 +11,7 @@ from technotes.views import *
 
 site_media = os.path.join(os.path.dirname(__file__), 'site_media')
 upload = os.path.join(os.path.dirname(__file__), 'upload')
+static_compiled = os.path.join(os.path.dirname(__file__), 'static_compiled')
 
 admin.autodiscover()
 
@@ -44,4 +45,5 @@ if settings.DEBUG:
 	urlpatterns += patterns('',
 		(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': site_media }),
 		(r'^upload/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': upload }),
+		(r'^static_compiled/(?P<path>.*)$', 'django.views.static.serve', {'document_root': static_compiled }),
 	)

@@ -167,8 +167,25 @@ CKEDITOR_CONFIGS = {
 		'toolbar': [
 			[		'Undo', 'Redo',
 				'-', 'Bold', 'Italic', 'Underline',
-				'-', 'link', '
-
+				'-', 'link', 'Unlink', 'Anchor',
+				'-', 'Format',
+				'-', 'SpellChecker', 'Scayt',
+				'-', 'Maximize',
+			],
+			[		'HorizontalRule',
+				'-', 'Table',
+				'-', 'BulletdList', 'NumberedList',
+				'-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord',
+				'-', 'SpecialChar',
+				'-', 'Source',
+				'-', 'About',
+			]
+		],
+		'width': 840,
+		'height': 300,
+		'toolbarCanCollapse': False,
+	}
+}
 
 
 ####### Local Settings Override ########
