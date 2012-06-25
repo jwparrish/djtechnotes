@@ -159,32 +159,15 @@ LOGGING = {
 #Default: '/accounts/login/'
 LOGIN_URL = '/login/'
 
-CKEDITOR_UPLOAD_PATH = os.path.join(CURRENT_PATH, 'ckuploads')
+CKEDITOR_UPLOAD_PATH = os.path.join(CURRENT_PATH, 'upload')
 CKEDITOR_RESTRICT_BY_USER = True
 
 CKEDITOR_CONFIGS = {
 	'default': {
-		'toolbar': [
-			[		'Undo', 'Redo',
-				'-', 'Bold', 'Italic', 'Underline',
-				'-', 'link', 'Unlink', 'Anchor',
-				'-', 'Format',
-				'-', 'SpellChecker', 'Scayt',
-				'-', 'Maximize',
-			],
-			[		'HorizontalRule',
-				'-', 'Table',
-				'-', 'BulletdList', 'NumberedList',
-				'-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord',
-				'-', 'SpecialChar',
-				'-', 'Source',
-				'-', 'About',
-			]
-		],
-		'width': 840,
+		'toolbar': 'Full',
 		'height': 300,
-		'toolbarCanCollapse': False,
-	}
+		'width': 800,
+	},
 }
 
 
