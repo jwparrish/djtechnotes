@@ -75,7 +75,8 @@ class NoteEditForm(forms.Form):
 	note = forms.CharField(
 		label = 'Note',
 		required = False,
-		widget = forms.widgets.Textarea(attrs={'class': 'noteinput field span8'})
+		widget = CKEditorWidget(),
+		#widget = forms.widgets.Textarea(attrs={'class': 'noteinput field span8'})
 	)
 	tags = forms.CharField(
 		label = 'Tags',
