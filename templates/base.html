@@ -29,13 +29,13 @@
 						<ul class="nav">
 						  <li><a href="/">home</a></li>
 						  {% if user.is_authenticated %}
-								<li><a href="/save/">submit</a></li>
-								<li><a href="/user/{{ user.username }}/">my notes</a></li>
-								<li><a href="/logout/">logout</a></li>
+								<li><a href="{% url note_save %}">submit</a></li>
+								<li><a href="{% url user_page user.username %}">my notes</a></li>
+								<li><a href="{% url logout %}">logout</a></li>
 								{% if user.is_staff %}<li><a href="/admin/" target="_blank">admin</a></li>{% endif %}
 							{% else %}
-								<li><a href="/login/">login</a></li>
-								<li><a href="/register/">register</a></li>
+								<li><a href="{% url login %}">login</a></li>
+								<li><a href="{% url register %}">register</a></li>
 							{% endif %}
 						</ul>
 						
@@ -64,8 +64,8 @@
 		<!-- JavaScript is placed at the bottom of the page for better loading performance. -->
 		<!-- Try loading jQuery from Google's CDN first as it's faster and had cache advantages... -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script src="/static/js/bootstrap-dropdown.js"></script>
-		<script src="/static/js/bootstrap-tab.js"></script>
+		<script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
+		<script src="{{ STATIC_URL }}js/bootstrap-tab.js"></script>
 		<script>
 			$(document).ready(function() {
 				$('.dropdown-menu').find('form').click(function(e) {
