@@ -15,7 +15,7 @@
 			{% for note in notes %}
 					<tr>
 						<td>
-							<a href="/user/{{ note.user.username }}/note/{{ note.id }}">{{ note.title|escape }}</a>
+							<a href="{% url display_note note.user.username note.id %}">{{ note.title|escape }}</a>
 							{% if show_edit %}
 								<a href="/save/?id={{ note.id }}"
 									class="edit">[edit]</a>
@@ -26,14 +26,7 @@
 								{% if note.tag_set.all %}
 									<ul class="tags">
 										{% for tag in note.tag_set.all %}
-											<li>
-												{% if forloop.first %}
-													<a href="/tag/{{ tag.name|urlencode }}/">{{ tag.name|escape }}</a>
-												{% else %}
-													,
-													<a href="/tag/{{ tag.name|urlencode }}/">{{ tag.name|escape }}</a>
-												{% endif %}
-											</li>
+											<li><a href="{% url tag_page tag.name %}">{{ tag.name|escape }}</a></li>
 										{% endfor %}
 									</ul>
 								{% else %}
@@ -43,7 +36,7 @@
 						</td>
 							{% if show_user %}
 								<td>
-									<a href="/user/{{ note.user.username }}/" class="username">{{ note.user.username }}</a>
+									<a href="{% url user_page note.user.username %}" class="username">{{ note.user.username }}</a>
 								</td>
 							{% endif %}
 						<td>
@@ -67,5 +60,5 @@
 		</div>
 	{% endif %}
 {% else %}
-	<p>No notes found.</p>
+	<p>No notes found. <a href="{% url create_note %}" class="btn">Create New Note</a></p>
 {% endif %}
