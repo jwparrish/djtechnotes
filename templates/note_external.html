@@ -4,9 +4,10 @@
 
 {% block head %}
 	{{ note.title }}
-	{% for vote in note.vote_set.all %}
-		<a title="vote for this note" href="/vote/?id={{ vote.id }}">[+]</a>
-	{% endfor %}
+	<div class="pull-right">
+		{% for vote in note.vote_set.all %}<a title="vote for this note" href="/vote/?id={{ vote.id }}" class="btn">vote up</a>{% endfor %} 
+		<a href="/save/?id={{ note.id }}" class="btn">edit this note</a>
+	</div>
 {% endblock %}
 
 {% block content %}
