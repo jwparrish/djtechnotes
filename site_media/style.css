@@ -147,3 +147,9 @@ ul.notelist .edit {
 .paginator {
 	float: right;
 }
+
+.helptext {
+	display: block;
+	font-size: 0.85em;
+	color: #777777;
+}

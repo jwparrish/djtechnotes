@@ -58,7 +58,8 @@ class NoteSaveForm(forms.Form):
 	tags = forms.CharField(
 		label = 'Tags',
 		required = False,
-		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'})
+		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'}),
+		help_text = 'separated by spaces. e.g. "Cheddar Swiss Nacho".'
 	)
 	
 class SearchForm(forms.Form):
@@ -81,7 +82,8 @@ class NoteEditForm(forms.Form):
 	tags = forms.CharField(
 		label = 'Tags',
 		required = False,
-		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'})
+		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'}),
+		help_text = 'separated by spaces. e.g. "Cheddar Swiss Nacho".'
 	)
 	noteid = forms.CharField(
 		label='NoteID',
@@ -99,7 +101,8 @@ class UploadPDFForm(forms.Form):
 	tags = forms.CharField(
 		label = 'Tags',
 		required = False,
-		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'})
+		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'}),
+		help_text = 'separated by spaces. e.g. "Cheddar Swiss Nacho".'
 	)
 	upPDF = forms.FileField(label = 'Upload')
 	
@@ -116,7 +119,8 @@ class UploadEditForm(forms.Form):
 	tags = forms.CharField(
 		label = 'Tags',
 		required = False,
-		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'})
+		widget = forms.TextInput(attrs={'size':64, 'class': 'field span8'}),
+		help_text = 'separated by spaces. e.g. "Cheddar Swiss Nacho".'
 	)
 	noteid = forms.CharField(
 		label='NoteID',

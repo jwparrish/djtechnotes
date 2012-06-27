@@ -13,7 +13,7 @@
 		{% if user.is_authenticated %}
 			<p>Welcome <span class="welcome">{{ user.username }}</span>!  techNotes is a Knowledge Base for Tech Support!</p>
 		{% else %}
-			<p>Welcome <span class="welcome">anonymous user</span>!  You need to <a href="/login/">login</a> before you can create or view notes.</p>
+			<p>Welcome <span class="welcome">anonymous user</span>!  You need to <a href="{% url login %}">login</a> before you can create or view notes.</p>
 		{% endif %}
 	</div>
 	

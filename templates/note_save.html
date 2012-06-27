@@ -50,7 +50,7 @@
 					{% else %}
 						<div id="cancel_button_importForm">
 					{% endif %}
-							or <a href="/user/{{ user.username }}">cancel</a>
+							or <a href="{% url user_page user.username %}">cancel</a>
 						</div> <!-- end cancel button div logic-->
 					{% if delete %}
 						<form id="delete_form" method="post" action="."> {% csrf_token %}
