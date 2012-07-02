@@ -41,9 +41,13 @@ urlpatterns = patterns('',
 	#(r'^(?P<path>.+)$', fake_redirect),
 )
 
+handler500 = redirect_500_error
+
 if settings.DEBUG:
 	urlpatterns += patterns('',
 		(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': site_media }),
 		(r'^upload/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': upload }),
 		(r'^static_compiled/(?P<path>.*)$', 'django.views.static.serve', {'document_root': static_compiled }),
+		(r'^500/$', redirect_500_error),
+		(r'^404/$', 'django.views.generic.simple.direct_to_template', {'template': '404.html'}),
 	)
