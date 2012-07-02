@@ -374,10 +374,7 @@ def render_to_zoho(note):
 		response = 'error'
 	return response	
 	
-def redirect_500_error(request, template_name='500.html'):
-	#t = loader.get_template(template_name)
-	#return http.HttpResponseServerError(t.render(Context({
-	#	'STATIC_URL': settings.STATIC_URL})))
+def redirect_500_error(request):
 	return render_to_response('500.html', context_instance=RequestContext(request))
 
 """ FAKE REDIRECT
