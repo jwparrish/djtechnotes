@@ -374,7 +374,7 @@ def render_to_zoho(note):
 	return response	
 	
 def redirect_500_error(request):
-	return render_to_response('500.html', {}, context_instance=RequestContext(request))
+	return render_to_response('500.html', {}, RequestContext(request))
 
 """ FAKE REDIRECT
 def fake_redirect(request, path):
