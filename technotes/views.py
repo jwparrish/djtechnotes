@@ -4,13 +4,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
-from django.template import Context, RequestContext
+from django.template import Context, RequestContext, loader
 from django.template.loader import get_template, render_to_string
 from django.utils import simplejson
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.conf import settings
+from django import http
 
 from technotes.forms import *
 from technotes.models import *
@@ -373,8 +374,11 @@ def render_to_zoho(note):
 		response = 'error'
 	return response	
 	
-def redirect_500_error(request):
-	return render_to_response('500.html', {}, context_instance=RequestContext(request));
+def redirect_500_error(request, template_name='500.html'):
+	t = loader.get_template(template_name)
+	return http.HttpResponseServerError(t.render(Context({
+		'STATIC_URL': settings.STATIC_URL})))
+	#return render_to_response('500.html', context_instance=RequestContext(request))
 
 """ FAKE REDIRECT
 def fake_redirect(request, path):
