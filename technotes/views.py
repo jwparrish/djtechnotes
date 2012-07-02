@@ -4,14 +4,13 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
-from django.template import Context, RequestContext, loader
+from django.template import Context, RequestContext
 from django.template.loader import get_template, render_to_string
 from django.utils import simplejson
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.conf import settings
-from django import http
 
 from technotes.forms import *
 from technotes.models import *

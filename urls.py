@@ -41,7 +41,7 @@ urlpatterns = patterns('',
 	#(r'^(?P<path>.+)$', fake_redirect),
 )
 
-handler500 = "redirect_500_error"
+handler500 = redirect_500_error
 
 if settings.DEBUG:
 	urlpatterns += patterns('',
