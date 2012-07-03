@@ -178,7 +178,7 @@ def display_note(request, username, noteid):
 			return render(request, 'note_external.html', {'username': username, 'note': note, 'templink': templink, 'comments': comments, 'comment_form': comment_form})
 
 	else:
-		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
+		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form, 'objects': Note.objects_with_scores.all()})
 
 @login_required
 def tag_page(request, tag_name):

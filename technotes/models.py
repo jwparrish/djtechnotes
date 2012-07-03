@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from qhonuskan_votes.models import VotesField, ObjectsWithScoresManager
 import os.path
 
 def user_folder(self, filename):
@@ -11,6 +12,8 @@ class Note(models.Model):
 	user = models.ForeignKey(User)
 	file = models.FileField(upload_to=user_folder, blank=True)
 	uploaded = models.BooleanField()
+	votes = VotesField()
+	objects_with_scores = ObjectsWithScoresManager()
 	
 	def __unicode__(self):
 		return self.title

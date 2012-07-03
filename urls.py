@@ -1,4 +1,5 @@
 import os.path
+import qhonuskan_votes.urls
 
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
@@ -37,6 +38,8 @@ urlpatterns = patterns('',
 	(r'^vote/$', note_vote_page),
 	(r'^comment/note/add/$', add_comment),
 	(r'^ckeditor/', include('ckeditor.urls')),
+	url(r'^votes/', include(qhonuskan_votes.urls)),
+	
 	# FAKE REDIRECT FOR NOT AUTHENTICATED USERS
 	#(r'^(?P<path>.+)$', fake_redirect),
 )
