@@ -13,6 +13,7 @@ class Note(models.Model):
 	file = models.FileField(upload_to=user_folder, blank=True)
 	uploaded = models.BooleanField()
 	votes = VotesField()
+	objects = models.Manager()
 	objects_with_scores = ObjectsWithScoresManager()
 	
 	def __unicode__(self):

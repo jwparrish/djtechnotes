@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load qhonuskan_votes static %}
 {% get_static_prefix as STATIC_PREFIX %}
-{% voting_script %}
-
 {% block title %}{{ username }}{% endblock %}
 
 {% block head %}
@@ -10,6 +8,7 @@
 	<div class="pull-right">
 		{% for object in objects %}
 			<div class="object">
+				{% vote_buttons_for object %}
 				<div class="text">
 					{{ object.text }}
 				</div>
@@ -70,7 +69,8 @@
 	
 {% endblock %}
 {% block external %}
-	<link href="{{ STATIC_PREFIX }}default_buttons.css" rel="stylesheet" type="text/css" />
+	{% voting_script %}
+	<link href="{{ STATIC_URL }}default_buttons.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="/site_media/comments.js"></script>
 	
 {% endblock %}
