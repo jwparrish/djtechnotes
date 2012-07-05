@@ -40,9 +40,13 @@
 								</td>
 							{% endif %}
 						<td>
-								{% for vote in note.vote_set.all %}
-									{{ vote.votes }}
-								  {% endfor %}
+								{% if note.votes.values %}
+									{% for vote in note.votes.values %}
+										{{ vote.value }}
+									{% endfor %}
+								{% else %}
+									0
+								{% endif %}
 						</td>
 					</tr>
 			{% endfor %}

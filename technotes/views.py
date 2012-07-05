@@ -178,7 +178,7 @@ def display_note(request, username, noteid):
 			return render(request, 'note_external.html', {'username': username, 'note': note, 'templink': templink, 'comments': comments, 'comment_form': comment_form})
 
 	else:
-		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form, 'objects': Note.objects_with_scores.all()})
+		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form, 'objects': Note.objects_with_scores.filter(notevote__object=note.id)})
 
 @login_required
 def tag_page(request, tag_name):
@@ -290,10 +290,10 @@ def _note_save(request, form):
 		tag, created = Tag.objects.get_or_create(name=tag_name)
 		note.tag_set.add(tag)
 	#Create corresponding Vote object
-	vote, created = Vote.objects.get_or_create(note=note)
-	if created:
-		vote.users_voted.add(request.user)
-		vote.save()
+	#vote, created = Vote.objects.get_or_create(note=note)
+	#if created:
+	#	vote.users_voted.add(request.user)
+	#	vote.save()
 	#Save Note to DB
 	note.save()
 	return note
