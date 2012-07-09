@@ -27,8 +27,8 @@
 						<a class="brand" href="/">techNotes</a>
 						
 						<ul class="nav">
-						  <li><a href="/">home</a></li>
 						  {% if user.is_authenticated %}
+								<li><a href="/">home</a></li>
 								<li><a href="{% url note_save %}">submit</a></li>
 								<li><a href="{% url user_page user.username %}">my notes</a></li>
 								<li><a href="{% url logout %}">logout</a></li>
@@ -38,10 +38,11 @@
 								<li><a href="{% url register %}">register</a></li>
 							{% endif %}
 						</ul>
-						
-						<form action="{% url search %}" method="get" id="search-form" class="navbar-search pull-right">
-						  <input type="text" class="search-query" name="query" id="id_query" placeholder="Search" {% if query %}value="{{ query }}"{% endif %}>
-						</form>
+						{% if user.is_authenticated %}
+							<form action="{% url search %}" method="get" id="search-form" class="navbar-search pull-right">
+							  <input type="text" class="search-query" name="query" id="id_query" placeholder="Search" {% if query %}value="{{ query }}"{% endif %}>
+							</form>
+						{% endif %}
 			
 					</div> <!-- /container -->
 				</div> <!-- /navbar-inner -->

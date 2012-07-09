@@ -64,5 +64,6 @@
 		</div>
 	{% endif %}
 {% else %}
-	<p>No notes found. <a href="{% url create_note %}" class="btn">Create New Note</a></p>
+	<p>No notes found. </p>
+	<p><a href="{% url note_save %}" class="btn btn-primary">Create New Note</a></p>
 {% endif %}

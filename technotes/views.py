@@ -54,7 +54,7 @@ def logout_page(request):
 	logout(request)
 	return HttpResponseRedirect('/logout/success/')
 
-@login_required	
+@login_required #currently disabled during private beta
 def register_page(request):
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
@@ -105,11 +105,7 @@ def note_save_page(request):
 				for tag_name in tag_names:
 					tag, created = Tag.objects.get_or_create(name=tag_name)
 					note.tag_set.add(tag)
-				#Create corresponding Vote object
-				vote, created = Vote.objects.get_or_create(note=note)
-				if created:
-					vote.users_voted.add(request.user)
-					vote.save()
+				
 				note.save()
 				return HttpResponseRedirect('/user/%s/' % request.user.username)
 			else:
@@ -167,15 +163,13 @@ def display_note(request, username, noteid):
 	note = Note.objects.get(id=noteid)
 	comments = Comment.objects.filter(note__id=noteid).order_by('date')
 	comment_form = CommentForm()
-	#if note.file:
-	#	return render(request, 'show_pdf.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form })
 	if note.file:
 		response = render_to_zoho(note)
 		if response == 'error':
 			return render(request, 'note_external.html', {'username': username, 'note': note })
 		else:
 			templink = response
-			return render(request, 'note_external.html', {'username': username, 'note': note, 'templink': templink, 'comments': comments, 'comment_form': comment_form})
+			return render(request, 'note_external.html', {'username': username, 'note': note, 'templink': templink, 'comments': comments, 'comment_form': comment_form, 'objects': Note.objects_with_scores.filter(notevote__object=note.id)})
 
 	else:
 		return render(request, 'note.html', {'username': username, 'note': note, 'comments': comments, 'comment_form': comment_form, 'objects': Note.objects_with_scores.filter(notevote__object=note.id)})
@@ -289,12 +283,7 @@ def _note_save(request, form):
 	for tag_name in tag_names:
 		tag, created = Tag.objects.get_or_create(name=tag_name)
 		note.tag_set.add(tag)
-	#Create corresponding Vote object
-	#vote, created = Vote.objects.get_or_create(note=note)
-	#if created:
-	#	vote.users_voted.add(request.user)
-	#	vote.save()
-	#Save Note to DB
+	
 	note.save()
 	return note
 	

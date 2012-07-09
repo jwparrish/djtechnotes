@@ -1,12 +1,19 @@
 {% extends "base.html" %}
-
+{% load qhonuskan_votes static %}
+{% get_static_prefix as STATIC_PREFIX %}
 {% block title %}{{ username }}{% endblock %}
 
 {% block head %}
 	{{ note.title }}
-	<div class="pull-right">
-		{% for vote in note.vote_set.all %}<a title="vote for this note" href="/vote/?id={{ vote.id }}" class="btn">vote up</a>{% endfor %} 
-		<a href="/save/?id={{ note.id }}" class="btn">edit this note</a>
+	<div class="pull-right">	
+		{% for object in objects %}
+			<div class="object">
+				{% vote_buttons_for object %}
+				<div class="text">
+					{{ object.text }}
+				</div>
+			</div>
+		{% endfor %}
 	</div>
 {% endblock %}
 
@@ -57,5 +64,7 @@
 	{% endif %}
 {% endblock %}
 {% block external %}
+	{% voting_script %}
+	<link href="{{ STATIC_URL }}default_buttons.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="/site_media/comments.js"></script>
 {% endblock %}

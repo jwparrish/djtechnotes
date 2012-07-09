@@ -2,7 +2,7 @@ div.vote_buttons{
     overflow:auto;
     border-radius:3px;
     background:#ddd;
-    margin:0;
+    margin: 0;
     padding:0 4px 4px 4px;
 }
 div.vote_buttons a.upVote,div.vote_buttons a.downVote,div.vote_buttons div.score{
